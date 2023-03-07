@@ -1,0 +1,19 @@
+{
+    "block_count": 1,
+    "evaluation_count": {
+        "etherscan_dict - moralis_dict": 1,
+        "etherscan_dict - infura_dict": 1,
+        "etherscan_dict - ethereum_api_dict": 0,
+        "moralis_dict - infura_dict": 1,
+        "moralis_dict - ethereum_api_dict": 0,
+        "infura_dict - ethereum_api_dict": 0
+    },
+    "evaluation_ratio": {
+        "etherscan_dict - moralis_dict": 1.0,
+        "etherscan_dict - infura_dict": 1.0,
+        "etherscan_dict - ethereum_api_dict": 0.0,
+        "moralis_dict - infura_dict": 1.0,
+        "moralis_dict - ethereum_api_dict": 0.0,
+        "infura_dict - ethereum_api_dict": 0.0
+    }
+}
