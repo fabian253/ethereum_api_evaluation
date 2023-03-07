@@ -20,7 +20,15 @@ class MoralisConnector:
         response = requests.get(
             f"{self.client_ip}/block/{block_identifier}", params=params, headers=self.request_headers)
 
-        return response.json()
+        response = response.json()
+
+        if not full_transactions:
+            transactions = [transaction["hash"]
+                            for transaction in response["transactions"]]
+
+            response["transactions"] = transactions
+
+        return response
 
     def get_transaction(self, transaction_hash: str):
         params = {
