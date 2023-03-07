@@ -8,6 +8,7 @@ import random
 from deepdiff import DeepDiff
 from datetime import datetime, timezone
 import itertools
+import copy
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
@@ -46,15 +47,17 @@ def prepare_block_from_all_apis(blocks):
     etherscan_dict = blocks["etherscan"]["result"]
 
     # remove keys that are not present in all responses
-    etherscan_dict.pop("mixHash")
-    etherscan_dict.pop("uncles")
+    etherscan_del_keys = ["mixHash", "uncles"]
+    for del_key in etherscan_del_keys:
+        etherscan_dict.pop(del_key, None)
 
     # moralis
     moralis_dict = blocks["moralis"]
 
     # remove keys that are not present in all responses
-    moralis_dict.pop("transaction_count")
-    moralis_dict.pop("base_fee_per_gas")
+    moralis_del_keys = ["transaction_count", "base_fee_per_gas"]
+    for del_key in moralis_del_keys:
+        moralis_dict.pop(del_key, None)
 
     # format and rename moralis dict
     rename_dict = {
@@ -76,19 +79,18 @@ def prepare_block_from_all_apis(blocks):
     moralis_dict["timestamp"] = hex(int(datetime.strptime(
         moralis_dict["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc).timestamp()))
 
-    moralis_dict["number"] = hex(int(moralis_dict["number"]))
-    moralis_dict["size"] = hex(int(moralis_dict["size"]))
-    moralis_dict["totalDifficulty"] = hex(int(moralis_dict["totalDifficulty"]))
-    moralis_dict["gasLimit"] = hex(int(moralis_dict["gasLimit"]))
-    moralis_dict["gasUsed"] = hex(int(moralis_dict["gasUsed"]))
-    moralis_dict["difficulty"] = hex(int(moralis_dict["difficulty"]))
+    hex_to_int_list = ["number", "size", "totalDifficulty",
+                       "gasLimit", "gasUsed", "difficulty"]
+    for hex_to_int in hex_to_int_list:
+        moralis_dict[hex_to_int] = hex(int(moralis_dict[hex_to_int]))
 
     # infura
     infura_dict = blocks["infura"]["result"]
 
     # remove keys that are not present in all responses
-    infura_dict.pop("mixHash")
-    infura_dict.pop("uncles")
+    infura_del_keys = ["mixHash", "uncles"]
+    for del_key in infura_del_keys:
+        infura_dict.pop(del_key, None)
 
     # ethereum api
     # TODO: implement when node is synced
@@ -148,13 +150,20 @@ def process_block_sample(block_sample):
 
 def evaluate_block_comparison(block_comparison):
     evaluation_dict = {}
+    comparison_error_dict = {}
 
     for key in block_comparison[0]["comparison"].keys():
         evaluation_dict[key] = 0
+        comparison_error_dict[key] = []
 
     for block_compare in block_comparison:
         for key, value in block_compare["comparison"].items():
-            evaluation_dict[key] += (1 if value else 0)
+            # increase counter if comparison euqals true
+            if value:
+                evaluation_dict[key] += 1
+            else:
+                comparison_error_dict[key].append(
+                    block_compare["block_identifier"])
 
     evaluation_ratio = {key: (value/len(block_comparison))
                         for key, value in evaluation_dict.items()}
@@ -162,17 +171,42 @@ def evaluate_block_comparison(block_comparison):
     return {
         "block_count": len(block_comparison),
         "evaluation_count": evaluation_dict,
-        "evaluation_ratio": evaluation_ratio
+        "evaluation_ratio": evaluation_ratio,
+        "comparison_error": comparison_error_dict
+    }
+
+
+def inspect_block(block_identifier):
+    block = query_block_from_all_apis(block_identifier)
+
+    prepared_block = prepare_block_from_all_apis(copy.deepcopy(block))
+
+    compare = compare_block_from_all_apis(
+        prepared_block, block_identifier)
+
+    return {
+        "block": block,
+        "prepared_block": prepared_block,
+        "compare": compare
     }
 
 
 if __name__ == "__main__":
+    inspect = True
+
+    # inspect block
+    if inspect:
+        inspection = inspect_block(11237854)
+
+        with open("evaluation/data_correctness_evaluation/block_inspection.json", "w") as outfile:
+            json.dump(inspection, outfile, indent=4)
+
     generate_sample = False
 
     # generate sample
     if generate_sample:
         generate_random_block_sample(
-            16777791, 1000, "evaluation/data_samples/block_sample.json")
+            16777791, 10, "evaluation/data_samples/block_sample.json")
 
     # read sample
     with open("evaluation/data_samples/block_sample.json", "r") as infile:
