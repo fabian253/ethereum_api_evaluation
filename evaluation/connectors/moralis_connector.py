@@ -30,16 +30,19 @@ class MoralisConnector:
 
         return response
 
-    def get_transaction(self, transaction_hash: str):
+    def get_transaction(self, transaction_hash: str, with_logs: bool = False, with_internal_transactions: bool = False):
         params = {
             'chain': 'eth',
             'include': 'internal_transactions'
         }
 
         response = requests.get(
-            f"{self.client_ip}/transaction/{transaction_hash}", params=params, headers=self.request_headers)
+            f"{self.client_ip}/transaction/{transaction_hash}", params=params, headers=self.request_headers).json()
 
-        return response.json()
+        del response["logs"]
+        del response["internal_transactions"]
+        
+        return response
 
     def get_block_transaction_count(self, block_identifier):
         response = self.get_block(block_identifier)
