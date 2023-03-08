@@ -4,10 +4,8 @@ from connectors.infura_connector import InfuraConnector
 from connectors.ethereum_api_connector import EthereumApiConnector
 import config
 import json
-import random
 import itertools
 from deepdiff import DeepDiff
-import copy
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
