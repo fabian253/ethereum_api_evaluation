@@ -68,3 +68,23 @@ class InfuraConnector:
             f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
 
         return response.json()
+
+    def get_wallet_balance(self, wallet_address, block_identifier="latest"):
+        # type conveserion for hex
+        if type(block_identifier) is int:
+            block_identifier = hex(block_identifier)
+
+        json_data = {
+            'jsonrpc': '2.0',
+            'id': 1,
+            'method': "eth_getBalance",
+            'params': [
+                wallet_address,
+                block_identifier
+            ]
+        }
+
+        response = requests.post(
+            f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
+
+        return response.json()

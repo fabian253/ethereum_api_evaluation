@@ -1,4 +1,5 @@
 import requests
+from typing import Union
 
 
 class MoralisConnector:
@@ -39,9 +40,12 @@ class MoralisConnector:
         response = requests.get(
             f"{self.client_ip}/transaction/{transaction_hash}", params=params, headers=self.request_headers).json()
 
-        del response["logs"]
-        del response["internal_transactions"]
-        
+        if not with_logs:
+            del response["logs"]
+
+        if not with_internal_transactions:
+            del response["internal_transactions"]
+
         return response
 
     def get_block_transaction_count(self, block_identifier):
@@ -50,3 +54,16 @@ class MoralisConnector:
         transaction_count = response["transaction_count"]
 
         return {"transaction_count": transaction_count}
+
+    def get_wallet_balance(self, wallet_address, block_identifier: Union[int, str] = None):
+        params = {
+            'chain': 'eth'
+        }
+
+        if block_identifier is not None and type(block_identifier) is not str:
+            params["to_block"] = block_identifier
+
+        response = requests.get(
+            f"{self.client_ip}/{wallet_address}/balance", params=params, headers=self.request_headers).json()
+
+        return response

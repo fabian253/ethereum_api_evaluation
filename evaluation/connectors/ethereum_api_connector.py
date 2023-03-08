@@ -51,3 +51,14 @@ class EthereumApiConnector:
             f"{self.client_ip}/execution_client/get_block_transaction_count", params=params, headers=self.request_header)
 
         return response.json()
+
+    def get_wallet_balance(self, wallet_address, block_identifier):
+        params = {
+            "wallet_address": wallet_address,
+            'block_identifier': block_identifier
+        }
+
+        response = requests.get(
+            f"{self.client_ip}/execution_client/get_balance", params=params, headers=self.request_header)
+
+        return response.json()

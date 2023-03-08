@@ -51,3 +51,16 @@ class EtherscanConnector:
         response = requests.get(self.client_ip, params=params)
 
         return response.json()
+
+    def get_wallet_balance(self, wallet_address, block_identifier="latest"):
+        params = {
+            "module": "account",
+            "action": "balance",
+            "address": wallet_address,
+            "tag":  block_identifier,
+            "apikey": self.api_key
+        }
+
+        response = requests.get(self.client_ip, params=params)
+
+        return response.json()
