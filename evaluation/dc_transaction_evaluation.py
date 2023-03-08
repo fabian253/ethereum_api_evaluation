@@ -4,7 +4,6 @@ from connectors.infura_connector import InfuraConnector
 from connectors.ethereum_api_connector import EthereumApiConnector
 import config
 import json
-import random
 import itertools
 from deepdiff import DeepDiff
 import copy
@@ -19,25 +18,6 @@ infura_connector = InfuraConnector(config.INFURA_IP, config.INFURA_API_KEY)
 
 ethereum_api_connector = EthereumApiConnector(
     config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
-
-
-def generate_random_transaction_sample(latest_block: int, sample_size: int, file_path: str):
-    block_sample = random.sample(range(0, latest_block+1), sample_size)
-
-    transaction_sample = []
-
-    # get a single transaction from each random block
-    for block_identifier in block_sample:
-        block = moralis_connector.get_block(block_identifier, False)
-
-        transaction = random.choice(block["transactions"])
-
-        transaction_sample.append(transaction)
-
-    sample_json = json.dumps(transaction_sample, indent=4)
-
-    with open(file_path, "w") as outfile:
-        outfile.write(sample_json)
 
 
 def query_transaction_from_all_apis(transaction_hash):
@@ -208,13 +188,6 @@ if __name__ == "__main__":
 
         with open("evaluation/data_correctness_evaluation/transaction_inspection.json", "w") as outfile:
             json.dump(inspection, outfile, indent=4)
-
-    generate_sample = False
-
-    # generate sample
-    if generate_sample:
-        generate_random_transaction_sample(
-            16777791, 10, "evaluation/data_samples/transaction_sample.json")
 
     # read sample
     with open("evaluation/data_samples/transaction_sample.json", "r") as infile:

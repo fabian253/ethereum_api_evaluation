@@ -4,7 +4,6 @@ from connectors.infura_connector import InfuraConnector
 from connectors.ethereum_api_connector import EthereumApiConnector
 import config
 import json
-import random
 from deepdiff import DeepDiff
 from datetime import datetime, timezone
 import itertools
@@ -20,15 +19,6 @@ infura_connector = InfuraConnector(config.INFURA_IP, config.INFURA_API_KEY)
 
 ethereum_api_connector = EthereumApiConnector(
     config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
-
-
-def generate_random_block_sample(latest_block: int, sample_size: int, file_path: str):
-    sample = random.sample(range(0, latest_block+1), sample_size)
-
-    sample_json = json.dumps(sample, indent=4)
-
-    with open(file_path, "w") as outfile:
-        outfile.write(sample_json)
 
 
 def query_block_from_all_apis(block_identifier):
@@ -200,13 +190,6 @@ if __name__ == "__main__":
 
         with open("evaluation/data_correctness_evaluation/block_inspection.json", "w") as outfile:
             json.dump(inspection, outfile, indent=4)
-
-    generate_sample = False
-
-    # generate sample
-    if generate_sample:
-        generate_random_block_sample(
-            16777791, 10, "evaluation/data_samples/block_sample.json")
 
     # read sample
     with open("evaluation/data_samples/block_sample.json", "r") as infile:
