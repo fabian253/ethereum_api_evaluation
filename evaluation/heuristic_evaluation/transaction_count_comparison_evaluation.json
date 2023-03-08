@@ -1,0 +1,60 @@
+{
+    "block_count": 10,
+    "evaluation_count": {
+        "etherscan_dict - moralis_dict": 10,
+        "etherscan_dict - infura_dict": 10,
+        "etherscan_dict - ethereum_api_dict": 0,
+        "moralis_dict - infura_dict": 10,
+        "moralis_dict - ethereum_api_dict": 0,
+        "infura_dict - ethereum_api_dict": 0
+    },
+    "evaluation_ratio": {
+        "etherscan_dict - moralis_dict": 1.0,
+        "etherscan_dict - infura_dict": 1.0,
+        "etherscan_dict - ethereum_api_dict": 0.0,
+        "moralis_dict - infura_dict": 1.0,
+        "moralis_dict - ethereum_api_dict": 0.0,
+        "infura_dict - ethereum_api_dict": 0.0
+    },
+    "comparison_error": {
+        "etherscan_dict - moralis_dict": [],
+        "etherscan_dict - infura_dict": [],
+        "etherscan_dict - ethereum_api_dict": [
+            6395765,
+            11237854,
+            8714247,
+            6134458,
+            3349559,
+            9828143,
+            9433957,
+            12212426,
+            5701598,
+            3875276
+        ],
+        "moralis_dict - infura_dict": [],
+        "moralis_dict - ethereum_api_dict": [
+            6395765,
+            11237854,
+            8714247,
+            6134458,
+            3349559,
+            9828143,
+            9433957,
+            12212426,
+            5701598,
+            3875276
+        ],
+        "infura_dict - ethereum_api_dict": [
+            6395765,
+            11237854,
+            8714247,
+            6134458,
+            3349559,
+            9828143,
+            9433957,
+            12212426,
+            5701598,
+            3875276
+        ]
+    }
+}
