@@ -51,7 +51,6 @@ def prepare_balance_from_all_apis(balance):
     infura_dict["balance"] = balance["infura"]["result"]
 
     # ethereum api
-    # TODO: implement when node is synced
     ethereum_api_dict = {}
     ethereum_api_dict["balance"] = balance["ethereum_api"]["balance"]
 
