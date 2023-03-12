@@ -78,8 +78,22 @@ def prepare_transaction_from_all_apis(transactions):
         infura_dict.pop(del_key, None)
 
     # ethereum api
-    # TODO: implement when node is synced
     ethereum_api_dict = transactions["ethereum_api"]
+
+    # remove keys that are not present in all responses
+    ethereum_del_keys = ["type", "chainId", "v", "r", "s",
+                         "maxFeePerGas", "maxPriorityFeePerGas", "accessList"]
+    for del_key in ethereum_del_keys:
+        ethereum_api_dict.pop(del_key, None)
+
+    # hex to int
+    hex_to_int_list = ["nonce", "value", "transactionIndex",
+                       "gasPrice", "blockNumber", "gas"]
+    for hex_to_int in hex_to_int_list:
+        ethereum_api_dict[hex_to_int] = hex(int(ethereum_api_dict[hex_to_int]))
+
+    ethereum_api_dict["from"] = ethereum_api_dict["from"].lower()
+    ethereum_api_dict["to"] = ethereum_api_dict["to"].lower()
 
     return {
         "etherscan_dict": etherscan_dict,
@@ -179,7 +193,7 @@ def inspect_transaction(transaction_hash):
 
 
 if __name__ == "__main__":
-    inspect = False
+    inspect = True
 
     # inspect transaction
     if inspect:
