@@ -48,9 +48,8 @@ def prepare_transaction_count_from_all_apis(transaction_count):
     infura_dict["transaction_count"] = transaction_count["infura"]["result"]
 
     # ethereum api
-    # TODO: implement when node is synced
     ethereum_api_dict = {}
-    ethereum_api_dict["transaction_count"] = transaction_count["ethereum_api"]
+    ethereum_api_dict["transaction_count"] =  hex(transaction_count["ethereum_api"]["block_transaction_count"])
 
     return {
         "etherscan_dict": etherscan_dict,
