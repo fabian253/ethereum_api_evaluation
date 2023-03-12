@@ -83,8 +83,21 @@ def prepare_block_from_all_apis(blocks):
         infura_dict.pop(del_key, None)
 
     # ethereum api
-    # TODO: implement when node is synced
     ethereum_api_dict = blocks["ethereum_api"]
+
+    # remove keys that are not present in all responses
+    ethereum_api_keys = ["mixHash", "uncles"]
+    for del_key in ethereum_api_keys:
+        ethereum_api_dict.pop(del_key, None)
+
+    # hex to int or date
+    hex_to_int_list = ["number", "size", "totalDifficulty",
+                       "gasLimit", "gasUsed", "difficulty", "timestamp"]
+    for hex_to_int in hex_to_int_list:
+        ethereum_api_dict[hex_to_int] = hex(int(ethereum_api_dict[hex_to_int]))
+
+    ethereum_api_dict["miner"] = ethereum_api_dict["miner"].lower()
+    
 
     return {
         "etherscan_dict": etherscan_dict,
@@ -182,7 +195,7 @@ def inspect_block(block_identifier):
 
 
 if __name__ == "__main__":
-    inspect = True
+    inspect = False
 
     # inspect block
     if inspect:

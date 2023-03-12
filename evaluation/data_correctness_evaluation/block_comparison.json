@@ -4,10 +4,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -15,10 +15,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -26,10 +26,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -37,10 +37,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -48,10 +48,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -59,10 +59,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -70,10 +70,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -81,10 +81,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -92,10 +92,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     },
     {
@@ -103,10 +103,10 @@
         "comparison": {
             "etherscan_dict - moralis_dict": true,
             "etherscan_dict - infura_dict": true,
-            "etherscan_dict - ethereum_api_dict": false,
+            "etherscan_dict - ethereum_api_dict": true,
             "moralis_dict - infura_dict": true,
-            "moralis_dict - ethereum_api_dict": false,
-            "infura_dict - ethereum_api_dict": false
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
         }
     }
 ]
