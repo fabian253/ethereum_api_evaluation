@@ -7,8 +7,8 @@ import json
 sample_folder = "evaluation/data_samples"
 
 block_sample_name = "block_sample"
-transaction_sample_name = "transaction_sample"
-wallet_address_sample_name = "wallet_address_sample"
+transaction_sample_name = "early_transaction_sample"
+wallet_address_sample_name = "tmp_wallet_address_sample"
 
 generate_block_sample = False
 block_sample_size = 10
@@ -47,9 +47,17 @@ def generate_random_transaction_sample(earliest_block: int, latest_block: int, s
     for block_identifier in block_sample:
         block = moralis_connector.get_block(block_identifier, False)
 
-        transaction = random.choice(block["transactions"])
+        if len(block["transactions"]) != 0:
+            transaction = random.choice(block["transactions"])
 
-        transaction_sample.append(transaction)
+            transaction_sample.append(transaction)
+        else:
+            new_block_identifier = block_sample[0]
+            while new_block_identifier in block_sample:
+                new_block_identifier = random.randint(
+                    earliest_block, latest_block+1)
+
+            block_sample.append(new_block_identifier)
 
     sample_json = json.dumps(transaction_sample, indent=4)
 
@@ -67,13 +75,21 @@ def generate_random_wallet_address_sample(earliest_block: int, latest_block: int
     for block_identifier in block_sample:
         block = moralis_connector.get_block(block_identifier, False)
 
-        transaction_hash = random.choice(block["transactions"])
+        if len(block["transactions"]) != 0:
+            transaction_hash = random.choice(block["transactions"])
 
-        transaction = moralis_connector.get_transaction(transaction_hash)
+            transaction = moralis_connector.get_transaction(transaction_hash)
 
-        wallet_address = transaction["from_address"]
+            wallet_address = transaction["from_address"]
 
-        wallet_address_sample.append(wallet_address)
+            wallet_address_sample.append(wallet_address)
+        else:
+            new_block_identifier = block_sample[0]
+            while new_block_identifier in block_sample:
+                new_block_identifier = random.randint(
+                    earliest_block, latest_block+1)
+
+            block_sample.append(new_block_identifier)
 
     sample_json = json.dumps(wallet_address_sample, indent=4)
 
