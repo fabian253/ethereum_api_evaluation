@@ -24,8 +24,11 @@ class MoralisConnector:
         response = response.json()
 
         if not full_transactions:
-            transactions = [transaction["hash"]
-                            for transaction in response["transactions"]]
+            if len(response["transactions"]) != 0:
+                transactions = [transaction["hash"]
+                                for transaction in response["transactions"]]
+            else:
+                transactions = []
 
             response["transactions"] = transactions
 
