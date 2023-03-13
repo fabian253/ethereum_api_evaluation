@@ -168,8 +168,8 @@ def evaluate_request_time_performance(request_time_performance):
             request_time)
 
     return_dict = {
-        "block_count": len(block_request_time_performance),
-        "transaction_count": len(transaction_request_time_performance),
+        "block_count": len(request_time_performance_dict["get_block"]),
+        "transaction_count": len(request_time_performance_dict["get_transaction"]),
         "overall_performance": evaluate_single_request_time_performance(request_time_performance, "overall")
     }
 
