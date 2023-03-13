@@ -6,15 +6,20 @@ import json
 # params
 sample_folder = "evaluation/data_samples"
 
+block_sample_name = "block_sample"
+transaction_sample_name = "transaction_sample"
+wallet_address_sample_name = "wallet_address_sample"
+
 generate_block_sample = False
 block_sample_size = 10
 
 generate_transaction_sample = False
 transaction_sample_size = 10
 
-generate_wallet_address_sample = True
+generate_wallet_address_sample = False
 wallet_address_sample_size = 10
 
+earliest_block = 0
 latest_block = 16777791
 
 
@@ -23,8 +28,8 @@ moralis_connector = MoralisConnector(
     config.MORALIS_IP, config.MORALIS_API_KEY)
 
 
-def generate_random_block_sample(latest_block: int, sample_size: int, file_path: str):
-    sample = random.sample(range(0, latest_block+1), sample_size)
+def generate_random_block_sample(earliest_block: int, latest_block: int, sample_size: int, file_path: str):
+    sample = random.sample(range(earliest_block, latest_block+1), sample_size)
 
     sample_json = json.dumps(sample, indent=4)
 
@@ -32,8 +37,9 @@ def generate_random_block_sample(latest_block: int, sample_size: int, file_path:
         outfile.write(sample_json)
 
 
-def generate_random_transaction_sample(latest_block: int, sample_size: int, file_path: str):
-    block_sample = random.sample(range(0, latest_block+1), sample_size)
+def generate_random_transaction_sample(earliest_block: int, latest_block: int, sample_size: int, file_path: str):
+    block_sample = random.sample(
+        range(earliest_block, latest_block+1), sample_size)
 
     transaction_sample = []
 
@@ -51,8 +57,9 @@ def generate_random_transaction_sample(latest_block: int, sample_size: int, file
         outfile.write(sample_json)
 
 
-def generate_random_wallet_address_sample(latest_block: int, sample_size: int, file_path: str):
-    block_sample = random.sample(range(0, latest_block+1), sample_size)
+def generate_random_wallet_address_sample(earliest_block: int, latest_block: int, sample_size: int, file_path: str):
+    block_sample = random.sample(
+        range(earliest_block, latest_block+1), sample_size)
 
     wallet_address_sample = []
 
@@ -78,14 +85,14 @@ if __name__ == "__main__":
     # generate block sample
     if generate_block_sample:
         generate_random_block_sample(
-            latest_block, block_sample_size, f"{sample_folder}/block_sample.json")
+            earliest_block, latest_block, block_sample_size, f"{sample_folder}/{block_sample_name}.json")
 
     # generate block sample
     if generate_transaction_sample:
         generate_random_transaction_sample(
-            latest_block, transaction_sample_size, f"{sample_folder}/transaction_sample.json")
+            earliest_block, latest_block, transaction_sample_size, f"{sample_folder}/{transaction_sample_name}.json")
 
     # generate address sample
     if generate_wallet_address_sample:
         generate_random_wallet_address_sample(
-            latest_block, wallet_address_sample_size, f"{sample_folder}/wallet_address_sample.json")
+            earliest_block, latest_block, wallet_address_sample_size, f"{sample_folder}/{wallet_address_sample_name}.json")
