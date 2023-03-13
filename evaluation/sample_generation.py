@@ -21,10 +21,10 @@ transaction_sample_size = 10
 generate_wallet_address_sample = False
 wallet_address_sample_size = 10
 
-generate_early_late_block_sample = True
+generate_early_late_block_sample = False
 early_late_block_sample_size = 10
 
-generate_early_late_transaction_sample = True
+generate_early_late_transaction_sample = False
 early_late_transaction_sample_size = 10
 
 earliest_block = 0
