@@ -179,23 +179,31 @@ def evaluate_request_time_performance(request_time_performance):
     overall_late_performance = evaluate_single_request_time_performance(request_time_performance_dict[(
         "get_block", "late")] + request_time_performance_dict[("get_transaction", "late")], "overall", "late")
 
-    # evaluate overall performance diff
+    # evaluate overall performance diff (diff between late and early -> negative number: late is faster)
     overall_performance_difference = {}
+    overall_performance_difference_percentage = {}
     for key in overall_late_performance.keys():
         if key == "method" or key == "timeframe":
             overall_performance_difference[key] = "overall"
+            overall_performance_difference_percentage[key] = "overall"
         else:
             tmp_performance_comparison = {}
+            tmp_performance_comparison_percentage = {}
             for api_provider in overall_late_performance[key].keys():
                 tmp_performance_comparison[api_provider] = overall_late_performance[key][api_provider] - \
                     overall_early_performance[key][api_provider]
 
+                tmp_performance_comparison_percentage[api_provider] = tmp_performance_comparison[
+                    api_provider] / overall_early_performance[key][api_provider] * 100
+
                 overall_performance_difference[key] = tmp_performance_comparison
+                overall_performance_difference_percentage[key] = tmp_performance_comparison_percentage
 
     return_dict = {
         "block_count": len(request_time_performance_dict[("get_block", "early")]),
         "transaction_count": len(request_time_performance_dict[("get_transaction", "early")]),
         "overall_performance_difference": overall_performance_difference,
+        "overall_performance_difference_percentage": overall_performance_difference_percentage,
         "overall_early_performance": overall_early_performance,
         "overall_late_performance": overall_late_performance
     }
