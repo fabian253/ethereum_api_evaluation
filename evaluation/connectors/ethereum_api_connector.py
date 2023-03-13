@@ -28,7 +28,7 @@ class EthereumApiConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/execution_client/get_block", params=params, headers=self.request_header)
+            f"{self.client_ip}/execution_client/history/get_block", params=params, headers=self.request_header)
 
         return response.json()
 
@@ -38,7 +38,7 @@ class EthereumApiConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/execution_client/get_transaction", params=params, headers=self.request_header)
+            f"{self.client_ip}/execution_client/history/get_transaction", params=params, headers=self.request_header)
 
         return response.json()
 
@@ -48,7 +48,7 @@ class EthereumApiConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/execution_client/get_block_transaction_count", params=params, headers=self.request_header)
+            f"{self.client_ip}/execution_client/history/get_block_transaction_count", params=params, headers=self.request_header)
 
         return response.json()
 
@@ -59,6 +59,6 @@ class EthereumApiConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/execution_client/get_balance", params=params, headers=self.request_header)
+            f"{self.client_ip}/execution_client/state/get_balance", params=params, headers=self.request_header)
 
         return response.json()
