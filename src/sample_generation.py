@@ -4,7 +4,7 @@ import random
 import json
 
 # params
-sample_folder = "evaluation/data_samples"
+sample_folder = "src/data_samples"
 
 block_sample_name = "block_sample"
 transaction_sample_name = "transaction_sample"

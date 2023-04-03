@@ -11,5 +11,5 @@ if __name__ == "__main__":
     response = ethereum_api_connector.get_erc721_token_transfers(
         contract_address, token_id=8000)
 
-    with open("evaluation/research_question_evaluation/contract_evolution.json", "w") as f:
+    with open("src/research_question_evaluation/contract_evolution.json", "w") as f:
         json.dump(response, f, indent=4)

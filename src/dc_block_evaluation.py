@@ -136,7 +136,7 @@ def process_block_sample(block_sample):
     for idx, block_identifier in enumerate(block_sample):
         blocks = query_block_from_all_apis(block_identifier)
 
-        # with open("evaluation/data_correctness_evaluation/blocks.json", "w") as outfile:
+        # with open("src/data_correctness_evaluation/blocks.json", "w") as outfile:
         #    json.dump(blocks, outfile, indent=4)
 
         prepared_blocks = prepare_block_from_all_apis(blocks)
@@ -201,21 +201,21 @@ if __name__ == "__main__":
     if inspect:
         inspection = inspect_block(11237854)
 
-        with open("evaluation/data_correctness_evaluation/block_inspection.json", "w") as outfile:
+        with open("src/data_correctness_evaluation/block_inspection.json", "w") as outfile:
             json.dump(inspection, outfile, indent=4)
 
     # read sample
-    with open("evaluation/data_samples/block_sample.json", "r") as infile:
+    with open("src/data_samples/block_sample.json", "r") as infile:
         block_sample = json.load(infile)
 
     # compare blocks
     block_comparison = process_block_sample(block_sample)
 
-    with open("evaluation/data_correctness_evaluation/block_comparison.json", "w") as outfile:
+    with open("src/data_correctness_evaluation/block_comparison.json", "w") as outfile:
         json.dump(block_comparison, outfile, indent=4)
 
     # evaluate block comparison
     block_comparison_evaluation = evaluate_block_comparison(block_comparison)
 
-    with open("evaluation/data_correctness_evaluation/block_comparison_evaluation.json", "w") as outfile:
+    with open("src/data_correctness_evaluation/block_comparison_evaluation.json", "w") as outfile:
         json.dump(block_comparison_evaluation, outfile, indent=4)

@@ -182,11 +182,11 @@ def evaluate_request_time_performance(request_time_performance):
 
 if __name__ == "__main__":
     # read sample
-    with open("evaluation/data_samples/block_sample.json", "r") as infile:
+    with open("src/data_samples/block_sample.json", "r") as infile:
         block_sample = json.load(infile)
 
     # read sample
-    with open("evaluation/data_samples/transaction_sample.json", "r") as infile:
+    with open("src/data_samples/transaction_sample.json", "r") as infile:
         transaction_sample = json.load(infile)
 
     # process block sample
@@ -199,12 +199,12 @@ if __name__ == "__main__":
     request_time_performance = block_request_time_performance + \
         transaction_request_time_performance
 
-    with open("evaluation/performance_evaluation/api_performance.json", "w") as outfile:
+    with open("src/performance_evaluation/api_performance.json", "w") as outfile:
         json.dump(request_time_performance, outfile, indent=4)
 
     # evaluate block comparison
     request_performance_evaluation = evaluate_request_time_performance(
         request_time_performance)
 
-    with open("evaluation/performance_evaluation/api_performance_evaluation.json", "w") as outfile:
+    with open("src/performance_evaluation/api_performance_evaluation.json", "w") as outfile:
         json.dump(request_performance_evaluation, outfile, indent=4)

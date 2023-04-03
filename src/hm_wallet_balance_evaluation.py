@@ -96,7 +96,7 @@ def process_block_sample(block_sample, block_identifier="latest"):
         balance = query_balance_from_all_apis(
             wallet_address, block_identifier)
 
-        # with open("evaluation/data_correctness_evaluation/blocks.json", "w") as outfile:
+        # with open("src/data_correctness_evaluation/blocks.json", "w") as outfile:
         #    json.dump(blocks, outfile, indent=4)
 
         prepared_balance = prepare_balance_from_all_apis(
@@ -146,18 +146,18 @@ if __name__ == "__main__":
     block_identifier = "latest"
 
     # read sample
-    with open("evaluation/data_samples/wallet_address_sample.json", "r") as infile:
+    with open("src/data_samples/wallet_address_sample.json", "r") as infile:
         block_sample = json.load(infile)
 
     # compare blocks
     block_comparison = process_block_sample(block_sample, block_identifier)
 
-    with open("evaluation/heuristic_evaluation/balance_comparison.json", "w") as outfile:
+    with open("src/heuristic_evaluation/balance_comparison.json", "w") as outfile:
         json.dump(block_comparison, outfile, indent=4)
 
     # evaluate block comparison
     balance_comparison_evaluation = evaluate_balance_comparison(
         block_comparison)
 
-    with open("evaluation/heuristic_evaluation/balance_comparison_evaluation.json", "w") as outfile:
+    with open("src/heuristic_evaluation/balance_comparison_evaluation.json", "w") as outfile:
         json.dump(balance_comparison_evaluation, outfile, indent=4)

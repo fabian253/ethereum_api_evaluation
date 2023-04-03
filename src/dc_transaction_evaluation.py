@@ -132,7 +132,7 @@ def process_transaction_sample(transaction_sample):
     for idx, transaction_hash in enumerate(transaction_sample):
         transaction = query_transaction_from_all_apis(transaction_hash)
 
-        # with open("evaluation/data_correctness_evaluation/transactions.json", "w") as outfile:
+        # with open("src/data_correctness_evaluation/transactions.json", "w") as outfile:
         #    json.dump(transaction, outfile, indent=4)
 
         prepared_transactions = prepare_transaction_from_all_apis(transaction)
@@ -200,11 +200,11 @@ if __name__ == "__main__":
         inspection = inspect_transaction(
             "0xab0cb6beab255331efe34b1d4ce01ccae6cecd9af2aac66bf33185c305f638e5")
 
-        with open("evaluation/data_correctness_evaluation/transaction_inspection.json", "w") as outfile:
+        with open("src/data_correctness_evaluation/transaction_inspection.json", "w") as outfile:
             json.dump(inspection, outfile, indent=4)
 
     # read sample
-    with open("evaluation/data_samples/transaction_sample.json", "r") as infile:
+    with open("src/data_samples/transaction_sample.json", "r") as infile:
         transaction_sample = json.load(infile)
 
     query_transaction_from_all_apis(transaction_sample[0])
@@ -212,12 +212,12 @@ if __name__ == "__main__":
     # compare blocks
     transaction_comparison = process_transaction_sample(transaction_sample)
 
-    with open("evaluation/data_correctness_evaluation/transaction_comparison.json", "w") as outfile:
+    with open("src/data_correctness_evaluation/transaction_comparison.json", "w") as outfile:
         json.dump(transaction_comparison, outfile, indent=4)
 
     # evaluate block comparison
     transaction_comparison_evaluation = evaluate_transaction_comparison(
         transaction_comparison)
 
-    with open("evaluation/data_correctness_evaluation/transaction_comparison_evaluation.json", "w") as outfile:
+    with open("src/data_correctness_evaluation/transaction_comparison_evaluation.json", "w") as outfile:
         json.dump(transaction_comparison_evaluation, outfile, indent=4)

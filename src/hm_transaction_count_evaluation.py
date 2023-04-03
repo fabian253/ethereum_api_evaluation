@@ -90,7 +90,7 @@ def process_block_sample(block_sample):
         transaction_count = query_transaction_count_from_all_apis(
             block_identifier)
 
-        # with open("evaluation/data_correctness_evaluation/blocks.json", "w") as outfile:
+        # with open("src/data_correctness_evaluation/blocks.json", "w") as outfile:
         #    json.dump(blocks, outfile, indent=4)
 
         prepared_transaction_count = prepare_transaction_count_from_all_apis(
@@ -136,18 +136,18 @@ def evaluate_transaction_count_comparison(transaction_count_comparison):
 
 if __name__ == "__main__":
     # read sample
-    with open("evaluation/data_samples/block_sample.json", "r") as infile:
+    with open("src/data_samples/block_sample.json", "r") as infile:
         block_sample = json.load(infile)
 
     # compare blocks
     block_comparison = process_block_sample(block_sample)
 
-    with open("evaluation/heuristic_evaluation/transaction_count_comparison.json", "w") as outfile:
+    with open("src/heuristic_evaluation/transaction_count_comparison.json", "w") as outfile:
         json.dump(block_comparison, outfile, indent=4)
 
     # evaluate block comparison
     transaction_count_comparison_evaluation = evaluate_transaction_count_comparison(
         block_comparison)
 
-    with open("evaluation/heuristic_evaluation/transaction_count_comparison_evaluation.json", "w") as outfile:
+    with open("src/heuristic_evaluation/transaction_count_comparison_evaluation.json", "w") as outfile:
         json.dump(transaction_count_comparison_evaluation, outfile, indent=4)
