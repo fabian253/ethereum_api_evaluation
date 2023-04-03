@@ -4,7 +4,7 @@ import requests
 class EtherscanConnector:
 
     def __init__(self, etherscan_ip: str, etherscan_api_key: str) -> None:
-        self.client_ip = etherscan_ip
+        self.client_url = etherscan_ip
         self.api_key = etherscan_api_key
 
     def get_block(self, block_identifier, full_transactions=False):
@@ -20,7 +20,7 @@ class EtherscanConnector:
             "apikey": self.api_key
         }
 
-        response = requests.get(self.client_ip, params=params)
+        response = requests.get(self.client_url, params=params)
 
         return response.json()
 
@@ -32,7 +32,7 @@ class EtherscanConnector:
             "apikey": self.api_key
         }
 
-        response = requests.get(self.client_ip, params=params)
+        response = requests.get(self.client_url, params=params)
 
         return response.json()
 
@@ -48,7 +48,7 @@ class EtherscanConnector:
             "apikey": self.api_key
         }
 
-        response = requests.get(self.client_ip, params=params)
+        response = requests.get(self.client_url, params=params)
 
         return response.json()
 
@@ -61,6 +61,6 @@ class EtherscanConnector:
             "apikey": self.api_key
         }
 
-        response = requests.get(self.client_ip, params=params)
+        response = requests.get(self.client_url, params=params)
 
         return response.json()

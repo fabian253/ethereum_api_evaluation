@@ -5,7 +5,7 @@ from typing import Union
 class InfuraConnector:
 
     def __init__(self, infura_ip: str, infura_api_key: str) -> None:
-        self.client_ip = infura_ip
+        self.client_url = infura_ip
         self.api_key = infura_api_key
         self.request_headers = {
             'accept': 'application/json'
@@ -29,7 +29,7 @@ class InfuraConnector:
         }
 
         response = requests.post(
-            f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
+            f"{self.client_url}/{self.api_key}", headers=self.request_headers, json=json_data)
 
         return response.json()
 
@@ -44,7 +44,7 @@ class InfuraConnector:
         }
 
         response = requests.post(
-            f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
+            f"{self.client_url}/{self.api_key}", headers=self.request_headers, json=json_data)
 
         return response.json()
 
@@ -65,7 +65,7 @@ class InfuraConnector:
         }
 
         response = requests.post(
-            f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
+            f"{self.client_url}/{self.api_key}", headers=self.request_headers, json=json_data)
 
         return response.json()
 
@@ -85,6 +85,6 @@ class InfuraConnector:
         }
 
         response = requests.post(
-            f"{self.client_ip}/{self.api_key}", headers=self.request_headers, json=json_data)
+            f"{self.client_url}/{self.api_key}", headers=self.request_headers, json=json_data)
 
         return response.json()

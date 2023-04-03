@@ -5,7 +5,7 @@ from typing import Union
 class MoralisConnector:
 
     def __init__(self, moralis_ip: str, moralis_api_key: str) -> None:
-        self.client_ip = moralis_ip
+        self.client_url = moralis_ip
         self.api_key = moralis_api_key
         self.request_headers = {
             'accept': 'application/json',
@@ -19,7 +19,7 @@ class MoralisConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/block/{block_identifier}", params=params, headers=self.request_headers)
+            f"{self.client_url}/block/{block_identifier}", params=params, headers=self.request_headers)
 
         response = response.json()
 
@@ -41,7 +41,7 @@ class MoralisConnector:
         }
 
         response = requests.get(
-            f"{self.client_ip}/transaction/{transaction_hash}", params=params, headers=self.request_headers).json()
+            f"{self.client_url}/transaction/{transaction_hash}", params=params, headers=self.request_headers).json()
 
         if not with_logs:
             del response["logs"]
@@ -67,6 +67,6 @@ class MoralisConnector:
             params["to_block"] = block_identifier
 
         response = requests.get(
-            f"{self.client_ip}/{wallet_address}/balance", params=params, headers=self.request_headers).json()
+            f"{self.client_url}/{wallet_address}/balance", params=params, headers=self.request_headers).json()
 
         return response
