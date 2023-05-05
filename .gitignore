@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # Custom
+src/tmp.py
 src/config.py
