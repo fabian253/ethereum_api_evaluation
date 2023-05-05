@@ -85,7 +85,7 @@ class EthereumApiConnector:
             params["value"] = value
 
         response = requests.get(
-            f"{self.client_url}/execution_client/contract/get_erc721_token_transfers", params=params, headers=self.request_header)
+            f"{self.client_url}/execution_client/contract/get_erc20_token_transfers", params=params, headers=self.request_header)
 
         return response.json()
 
@@ -112,4 +112,34 @@ class EthereumApiConnector:
         response = requests.get(
             f"{self.client_url}/execution_client/contract/get_erc721_token_transfers", params=params, headers=self.request_header)
 
+        return response.json()
+
+    def get_erc721_contract_addresses(self,
+                                      with_name: bool = False,
+                                      with_symbol: bool = False,
+                                      with_total_supply: bool = False,
+                                      with_abi: bool = False,
+                                      limit: Union[int, None] = None):
+        params = {
+            "with_name": with_name,
+            "with_symbol": with_symbol,
+            "with_total_supply": with_total_supply,
+            "with_abi": with_abi
+        }
+        if limit is not None:
+            params["limit"] = limit
+
+        response = requests.get(
+            f"{self.client_url}/execution_client/contract/get_erc721_contracts", params=params, headers=self.request_header)
+
+        return response.json()
+    
+    def get_contract_mint_block(self, contract_address:str):
+        params= {
+            "contract_address": contract_address
+        }
+        
+        response = requests.get(
+            f"{self.client_url}/execution_client/contract/get_contract_mint_block", params=params, headers=self.request_header, timeout=(5, 60))
+        
         return response.json()
