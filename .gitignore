@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Custom
-src/tmp.py
 src/config.py
+src/mint_block_indexer.py
