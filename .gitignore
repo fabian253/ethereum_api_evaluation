@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Custom
-evaluation/config.py
+src/config.py
