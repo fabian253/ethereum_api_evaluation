@@ -3,7 +3,6 @@ from connectors.sql_database_connector import SqlDatabaseConnector
 import db_metadata.sql_tables as tables
 import config
 import matplotlib.pyplot as plt
-from collections import Counter
 import numpy as np
 from typing import Union
 import json

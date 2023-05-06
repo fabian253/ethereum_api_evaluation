@@ -8,6 +8,13 @@ from deepdiff import DeepDiff
 from datetime import datetime, timezone
 import itertools
 import copy
+import matplotlib.pyplot as plt
+import numpy as np
+
+with_inspect = False
+with_compare_blocks = False
+with_block_comparison_evaluation = False
+with_block_comparison_chart = True
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
@@ -97,7 +104,6 @@ def prepare_block_from_all_apis(blocks):
         ethereum_api_dict[hex_to_int] = hex(int(ethereum_api_dict[hex_to_int]))
 
     ethereum_api_dict["miner"] = ethereum_api_dict["miner"].lower()
-    
 
     return {
         "etherscan_dict": etherscan_dict,
@@ -194,11 +200,28 @@ def inspect_block(block_identifier):
     }
 
 
-if __name__ == "__main__":
-    inspect = False
+def create_comparison_chart(block_comparison_evaluation: dict):
+    evaluation_ratio = block_comparison_evaluation["evaluation_ratio"]
 
+    comparison_labels = [k.replace("_dict", "")
+                         for k in evaluation_ratio.keys()]
+    comparison_values = evaluation_ratio.values()
+
+    y_pos = np.arange(len(comparison_labels))
+    plt.figure(figsize=(12, 6))
+    plt.bar(y_pos, comparison_values)
+    plt.xticks(y_pos, comparison_labels, rotation=90)
+
+    plt.title(f"Block Correctness Comparison (block count: {block_comparison_evaluation['block_count']})", {
+              "fontsize": 10})
+    plt.tight_layout()
+    plt.savefig(
+        f"src/data_correctness_evaluation/block_correctness_comparison.png", format="PNG")
+
+
+if __name__ == "__main__":
     # inspect block
-    if inspect:
+    if with_inspect:
         inspection = inspect_block(11237854)
 
         with open("src/data_correctness_evaluation/block_inspection.json", "w") as outfile:
@@ -209,13 +232,22 @@ if __name__ == "__main__":
         block_sample = json.load(infile)
 
     # compare blocks
-    block_comparison = process_block_sample(block_sample)
+    if with_compare_blocks:
+        block_comparison = process_block_sample(block_sample)
 
-    with open("src/data_correctness_evaluation/block_comparison.json", "w") as outfile:
-        json.dump(block_comparison, outfile, indent=4)
+        with open("src/data_correctness_evaluation/block_comparison.json", "w") as outfile:
+            json.dump(block_comparison, outfile, indent=4)
 
     # evaluate block comparison
-    block_comparison_evaluation = evaluate_block_comparison(block_comparison)
+    if with_block_comparison_evaluation:
+        block_comparison_evaluation = evaluate_block_comparison(
+            block_comparison)
 
-    with open("src/data_correctness_evaluation/block_comparison_evaluation.json", "w") as outfile:
-        json.dump(block_comparison_evaluation, outfile, indent=4)
+        with open("src/data_correctness_evaluation/block_comparison_evaluation.json", "w") as outfile:
+            json.dump(block_comparison_evaluation, outfile, indent=4)
+
+    # create chart
+    if with_block_comparison_chart:
+        with open("src/data_correctness_evaluation/block_comparison_evaluation.json", "r") as f:
+            block_comparison_evaluation = json.load(f)
+        create_comparison_chart(block_comparison_evaluation)

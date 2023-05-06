@@ -6,6 +6,12 @@ import config
 import json
 import itertools
 from deepdiff import DeepDiff
+import matplotlib.pyplot as plt
+import numpy as np
+
+with_block_comparison = False
+with_wallet_balance_evaluation = False
+with_wallet_balance_comparison_chart = True
 
 
 etherscan_connector = EtherscanConnector(
@@ -141,6 +147,25 @@ def evaluate_balance_comparison(balance_comparison):
     }
 
 
+def create_comparison_chart(block_comparison_evaluation: dict):
+    evaluation_ratio = block_comparison_evaluation["evaluation_ratio"]
+
+    comparison_labels = [k.replace("_dict", "")
+                         for k in evaluation_ratio.keys()]
+    comparison_values = evaluation_ratio.values()
+
+    y_pos = np.arange(len(comparison_labels))
+    plt.figure(figsize=(12, 6))
+    plt.bar(y_pos, comparison_values)
+    plt.xticks(y_pos, comparison_labels, rotation=90)
+
+    plt.title(f"Wallet Balance Comparison (wallet count: {block_comparison_evaluation['wallet_count']})", {
+              "fontsize": 10})
+    plt.tight_layout()
+    plt.savefig(
+        f"src/heuristic_evaluation/wallet_balance_comparison.png", format="PNG")
+
+
 if __name__ == "__main__":
     # param (only latest is working -> etherscan premium endpoint needed)
     block_identifier = "latest"
@@ -150,14 +175,22 @@ if __name__ == "__main__":
         block_sample = json.load(infile)
 
     # compare blocks
-    block_comparison = process_block_sample(block_sample, block_identifier)
+    if with_block_comparison:
+        block_comparison = process_block_sample(block_sample, block_identifier)
 
-    with open("src/heuristic_evaluation/balance_comparison.json", "w") as outfile:
-        json.dump(block_comparison, outfile, indent=4)
+        with open("src/heuristic_evaluation/balance_comparison.json", "w") as outfile:
+            json.dump(block_comparison, outfile, indent=4)
 
     # evaluate block comparison
-    balance_comparison_evaluation = evaluate_balance_comparison(
-        block_comparison)
+    if with_wallet_balance_evaluation:
+        balance_comparison_evaluation = evaluate_balance_comparison(
+            block_comparison)
 
-    with open("src/heuristic_evaluation/balance_comparison_evaluation.json", "w") as outfile:
-        json.dump(balance_comparison_evaluation, outfile, indent=4)
+        with open("src/heuristic_evaluation/balance_comparison_evaluation.json", "w") as outfile:
+            json.dump(balance_comparison_evaluation, outfile, indent=4)
+
+    # create chart
+    if with_wallet_balance_comparison_chart:
+        with open("src/heuristic_evaluation/balance_comparison_evaluation.json", "r") as f:
+            wallet_balance_comparison_evaluation = json.load(f)
+        create_comparison_chart(wallet_balance_comparison_evaluation)

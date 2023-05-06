@@ -6,6 +6,13 @@ import config
 import json
 import itertools
 from deepdiff import DeepDiff
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+with_block_comparison = False
+with_transaction_count_evaluation = False
+with_transaction_count_comparison_chart = True
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
@@ -49,7 +56,8 @@ def prepare_transaction_count_from_all_apis(transaction_count):
 
     # ethereum api
     ethereum_api_dict = {}
-    ethereum_api_dict["transaction_count"] =  hex(transaction_count["ethereum_api"]["block_transaction_count"])
+    ethereum_api_dict["transaction_count"] = hex(
+        transaction_count["ethereum_api"]["block_transaction_count"])
 
     return {
         "etherscan_dict": etherscan_dict,
@@ -134,20 +142,47 @@ def evaluate_transaction_count_comparison(transaction_count_comparison):
     }
 
 
+def create_comparison_chart(block_comparison_evaluation: dict):
+    evaluation_ratio = block_comparison_evaluation["evaluation_ratio"]
+
+    comparison_labels = [k.replace("_dict", "")
+                         for k in evaluation_ratio.keys()]
+    comparison_values = evaluation_ratio.values()
+
+    y_pos = np.arange(len(comparison_labels))
+    plt.figure(figsize=(12, 6))
+    plt.bar(y_pos, comparison_values)
+    plt.xticks(y_pos, comparison_labels, rotation=90)
+
+    plt.title(f"Transaction Count Comparison (block count: {block_comparison_evaluation['block_count']})", {
+              "fontsize": 10})
+    plt.tight_layout()
+    plt.savefig(
+        f"src/heuristic_evaluation/transaction_count_comparison.png", format="PNG")
+
+
 if __name__ == "__main__":
     # read sample
     with open("src/data_samples/block_sample.json", "r") as infile:
         block_sample = json.load(infile)
 
     # compare blocks
-    block_comparison = process_block_sample(block_sample)
+    if with_block_comparison:
+        block_comparison = process_block_sample(block_sample)
 
-    with open("src/heuristic_evaluation/transaction_count_comparison.json", "w") as outfile:
-        json.dump(block_comparison, outfile, indent=4)
+        with open("src/heuristic_evaluation/transaction_count_comparison.json", "w") as outfile:
+            json.dump(block_comparison, outfile, indent=4)
 
-    # evaluate block comparison
-    transaction_count_comparison_evaluation = evaluate_transaction_count_comparison(
-        block_comparison)
+    # evaluate transaction count comparison
+    if with_transaction_count_evaluation:
+        transaction_count_comparison_evaluation = evaluate_transaction_count_comparison(
+            block_comparison)
 
-    with open("src/heuristic_evaluation/transaction_count_comparison_evaluation.json", "w") as outfile:
-        json.dump(transaction_count_comparison_evaluation, outfile, indent=4)
+        with open("src/heuristic_evaluation/transaction_count_comparison_evaluation.json", "w") as outfile:
+            json.dump(transaction_count_comparison_evaluation,
+                      outfile, indent=4)
+    # create chart
+    if with_transaction_count_comparison_chart:
+        with open("src/heuristic_evaluation/transaction_count_comparison_evaluation.json", "r") as f:
+            transaction_count_comparison_evaluation = json.load(f)
+        create_comparison_chart(transaction_count_comparison_evaluation)

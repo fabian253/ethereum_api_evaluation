@@ -7,6 +7,13 @@ import json
 import itertools
 from deepdiff import DeepDiff
 import copy
+import matplotlib.pyplot as plt
+import numpy as np
+
+with_inspect = False
+with_compare_transactions = False
+with_transaction_comparison_evaluation = False
+with_transaction_comparison_chart = True
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
@@ -192,11 +199,28 @@ def inspect_transaction(transaction_hash):
     }
 
 
-if __name__ == "__main__":
-    inspect = True
+def create_comparison_chart(transaction_comparison_evaluation: dict):
+    evaluation_ratio = transaction_comparison_evaluation["evaluation_ratio"]
 
+    comparison_labels = [k.replace("_dict", "")
+                         for k in evaluation_ratio.keys()]
+    comparison_values = evaluation_ratio.values()
+
+    y_pos = np.arange(len(comparison_labels))
+    plt.figure(figsize=(12, 6))
+    plt.bar(y_pos, comparison_values)
+    plt.xticks(y_pos, comparison_labels, rotation=90)
+
+    plt.title(f"Transaction Correctness Comparison (transaction count: {transaction_comparison_evaluation['transaction_count']})", {
+              "fontsize": 10})
+    plt.tight_layout()
+    plt.savefig(
+        f"src/data_correctness_evaluation/transaction_correctness_comparison.png", format="PNG")
+
+
+if __name__ == "__main__":
     # inspect transaction
-    if inspect:
+    if with_inspect:
         inspection = inspect_transaction(
             "0xab0cb6beab255331efe34b1d4ce01ccae6cecd9af2aac66bf33185c305f638e5")
 
@@ -207,17 +231,23 @@ if __name__ == "__main__":
     with open("src/data_samples/transaction_sample.json", "r") as infile:
         transaction_sample = json.load(infile)
 
-    query_transaction_from_all_apis(transaction_sample[0])
+    # compare transactions
+    if with_compare_transactions:
+        transaction_comparison = process_transaction_sample(transaction_sample)
 
-    # compare blocks
-    transaction_comparison = process_transaction_sample(transaction_sample)
+        with open("src/data_correctness_evaluation/transaction_comparison.json", "w") as outfile:
+            json.dump(transaction_comparison, outfile, indent=4)
 
-    with open("src/data_correctness_evaluation/transaction_comparison.json", "w") as outfile:
-        json.dump(transaction_comparison, outfile, indent=4)
+    # evaluate transaction comparison
+    if with_transaction_comparison_evaluation:
+        transaction_comparison_evaluation = evaluate_transaction_comparison(
+            transaction_comparison)
 
-    # evaluate block comparison
-    transaction_comparison_evaluation = evaluate_transaction_comparison(
-        transaction_comparison)
+        with open("src/data_correctness_evaluation/transaction_comparison_evaluation.json", "w") as outfile:
+            json.dump(transaction_comparison_evaluation, outfile, indent=4)
 
-    with open("src/data_correctness_evaluation/transaction_comparison_evaluation.json", "w") as outfile:
-        json.dump(transaction_comparison_evaluation, outfile, indent=4)
+    # create chart
+    if with_transaction_comparison_chart:
+        with open("src/data_correctness_evaluation/transaction_comparison_evaluation.json", "r") as f:
+            transaction_comparison_evaluation = json.load(f)
+        create_comparison_chart(transaction_comparison_evaluation)

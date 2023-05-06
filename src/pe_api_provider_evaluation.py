@@ -6,6 +6,12 @@ import config
 import json
 from datetime import datetime
 import numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
+
+with_request_time_evaluation = False
+with_request_time_processing = False
+with_performance_evaluation_chart = True
 
 etherscan_connector = EtherscanConnector(
     config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
@@ -180,31 +186,80 @@ def evaluate_request_time_performance(request_time_performance):
     return return_dict
 
 
+def create_comparison_chart(request_performance_evaluation: dict):
+    def create_chart(performance: dict, block_count: int, transaction_count: int):
+        etherscan_perf = []
+        moralis_perf = []
+        infura_perf = []
+        ethereum_api_perf = []
+        x_labels = []
+
+        for k, v in performance.items():
+            if k != "method":
+                etherscan_perf.append(v["etherscan"])
+                moralis_perf.append(v["moralis"])
+                infura_perf.append(v["infura"])
+                ethereum_api_perf.append(v["ethereum_api"])
+                x_labels.append(k)
+
+        x = np.arange(5)
+        width = 0.2
+
+        plt.figure(figsize=(12, 6))
+        plt.bar(x-0.3, etherscan_perf, width, color='cyan')
+        plt.bar(x-0.1, moralis_perf, width, color='orange')
+        plt.bar(x+0.1, infura_perf, width, color='green')
+        plt.bar(x+0.3, ethereum_api_perf, width, color='blue')
+        plt.xticks(x, x_labels)
+        plt.ylabel("Time (s)")
+        plt.legend(["etherscan", "moralis", "infura", "ethereum_api"])
+        plt.title(f"Request Performance Comparison: {performance['method']}\nblock_count: {block_count}, transaction_count: {transaction_count}", {
+                  "fontsize": 10})
+        plt.tight_layout()
+        plt.savefig(
+            f"src/performance_evaluation/request_performance_{performance['method']}.png", format="PNG")
+
+    create_chart(request_performance_evaluation["overall_performance"],
+                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"])
+    create_chart(request_performance_evaluation["get_block_performance"],
+                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"])
+    create_chart(request_performance_evaluation["get_transaction_performance"],
+                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"])
+
+
 if __name__ == "__main__":
-    # read sample
-    with open("src/data_samples/block_sample.json", "r") as infile:
-        block_sample = json.load(infile)
+    if with_request_time_processing:
+        # read sample
+        with open("src/data_samples/block_sample.json", "r") as infile:
+            block_sample = json.load(infile)
 
-    # read sample
-    with open("src/data_samples/transaction_sample.json", "r") as infile:
-        transaction_sample = json.load(infile)
+        # read sample
+        with open("src/data_samples/transaction_sample.json", "r") as infile:
+            transaction_sample = json.load(infile)
 
-    # process block sample
-    block_request_time_performance = process_block_sample(block_sample)
+        # process block sample
+        block_request_time_performance = process_block_sample(block_sample)
 
-    # process transaction sample
-    transaction_request_time_performance = process_transaction_sample(
-        transaction_sample)
+        # process transaction sample
+        transaction_request_time_performance = process_transaction_sample(
+            transaction_sample)
 
-    request_time_performance = block_request_time_performance + \
-        transaction_request_time_performance
+        request_time_performance = block_request_time_performance + \
+            transaction_request_time_performance
 
-    with open("src/performance_evaluation/api_performance.json", "w") as outfile:
-        json.dump(request_time_performance, outfile, indent=4)
+        with open("src/performance_evaluation/api_performance.json", "w") as outfile:
+            json.dump(request_time_performance, outfile, indent=4)
 
-    # evaluate block comparison
-    request_performance_evaluation = evaluate_request_time_performance(
-        request_time_performance)
+    # evaluate request time performance
+    if with_request_time_evaluation:
+        request_performance_evaluation = evaluate_request_time_performance(
+            request_time_performance)
 
-    with open("src/performance_evaluation/api_performance_evaluation.json", "w") as outfile:
-        json.dump(request_performance_evaluation, outfile, indent=4)
+        with open("src/performance_evaluation/api_performance_evaluation.json", "w") as outfile:
+            json.dump(request_performance_evaluation, outfile, indent=4)
+
+    # create chart
+    if with_performance_evaluation_chart:
+        with open("src/performance_evaluation/api_performance_evaluation.json", "r") as f:
+            request_performance_evaluation = json.load(f)
+        create_comparison_chart(request_performance_evaluation)
