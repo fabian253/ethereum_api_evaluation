@@ -1,6 +1,6 @@
 {
-    "block_count": 10,
-    "transaction_count": 10,
+    "block_count": 1000,
+    "transaction_count": 1000,
     "overall_performance": {
         "method": "overall",
         "min_request_time": {

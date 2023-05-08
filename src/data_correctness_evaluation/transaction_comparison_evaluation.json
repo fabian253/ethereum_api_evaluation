@@ -1,12 +1,12 @@
 {
-    "transaction_count": 10,
+    "transaction_count": 1000,
     "evaluation_count": {
-        "etherscan_dict - moralis_dict": 10,
-        "etherscan_dict - infura_dict": 10,
-        "etherscan_dict - ethereum_api_dict": 10,
-        "moralis_dict - infura_dict": 10,
-        "moralis_dict - ethereum_api_dict": 10,
-        "infura_dict - ethereum_api_dict": 10
+        "etherscan_dict - moralis_dict": 1000,
+        "etherscan_dict - infura_dict": 1000,
+        "etherscan_dict - ethereum_api_dict": 1000,
+        "moralis_dict - infura_dict": 1000,
+        "moralis_dict - ethereum_api_dict": 1000,
+        "infura_dict - ethereum_api_dict": 1000
     },
     "evaluation_ratio": {
         "etherscan_dict - moralis_dict": 1.0,

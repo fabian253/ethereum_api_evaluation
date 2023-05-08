@@ -8,9 +8,9 @@ from typing import Union
 import json
 
 # analysis flags
-with_holder_count_history = False
-with_holder_change_history = False
-with_distribution_of_token_holder_count = False
+with_holder_count_history = True
+with_holder_change_history = True
+with_distribution_of_token_holder_count = True
 with_transaction_history = True
 
 ethereum_api_connector = EthereumApiConnector(
@@ -196,6 +196,8 @@ def create_holder_history(contract_address: str):
     plt.figure(figsize=(12, 6))
     plt.bar(y_pos, binned_stats)
     plt.xticks(y_pos-0.5, bins, rotation=90)
+    plt.xlabel("Block Number")
+    plt.ylabel("Holder Count")
 
     plt.title(
         f"DAO Token Holder Count History ({contract_address})\n[{from_block}, {to_block}]", {"fontsize": 10})
@@ -235,6 +237,8 @@ def create_holder_change_history(contract_address: str):
     plt.figure(figsize=(12, 6))
     plt.bar(y_pos, binned_stats)
     plt.xticks(y_pos-0.5, bins, rotation=90)
+    plt.xlabel("Block Number")
+    plt.ylabel("Holder Count")
 
     plt.title(
         f"DAO Token Holder Change History ({contract_address})\n[{from_block}, {to_block}]", {"fontsize": 10})
@@ -271,6 +275,8 @@ def create_holder_value_state_distribution(contract_address: str):
     plt.bar(y_pos, binned_state)
     plt.xticks(y_pos-0.5, bins, rotation=90)
     plt.yscale('log')
+    plt.xlabel("Value")
+    plt.ylabel("Holder Count")
 
     plt.title(
         f"DAO Holder Value Distribution ({contract_address})\n[{from_value}, {to_value}]", {"fontsize": 10})
@@ -314,6 +320,8 @@ def create_transaction_history(contract_address: str):
     plt.figure(figsize=(12, 6))
     plt.bar(y_pos, binned_transaction_count)
     plt.xticks(y_pos-0.5, bins, rotation=90)
+    plt.xlabel("Block Number")
+    plt.ylabel("Transaction Count")
 
     plt.title(
         f"DAO Transaction Count Distribution ({contract_address})\n[{from_block}, {to_block}]", {"fontsize": 10})
@@ -325,6 +333,8 @@ def create_transaction_history(contract_address: str):
     plt.figure(figsize=(12, 6))
     plt.bar(y_pos, binned_transaction_value)
     plt.xticks(y_pos-0.5, bins, rotation=90)
+    plt.xlabel("Block Number")
+    plt.ylabel("Transaction Value")
 
     plt.title(
         f"DAO Transaction Value Distribution ({contract_address})\n[{from_block}, {to_block}]", {"fontsize": 10})

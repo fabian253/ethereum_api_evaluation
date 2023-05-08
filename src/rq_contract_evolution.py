@@ -56,6 +56,8 @@ def create_contract_mint_history(from_block: Union[int, None] = None, to_block: 
         plt.figure(figsize=(12, 6))
         plt.bar(y_pos, sorted_binned_block_occurrence_counter)
         plt.xticks(y_pos-0.5, bins, rotation=90)
+        plt.xlabel("Block Number")
+        plt.ylabel("Contract Count")
 
         plt.title(
             f"Contract Mint History ({token_standard})\n[{from_block}, {to_block}]", {"fontsize": 10})

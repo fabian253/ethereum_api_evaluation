@@ -1,51 +1,27 @@
 {
-    "wallet_count": 10,
+    "wallet_count": 1000,
     "evaluation_count": {
-        "etherscan_dict - moralis_dict": 10,
-        "etherscan_dict - infura_dict": 10,
-        "etherscan_dict - ethereum_api_dict": 3,
-        "moralis_dict - infura_dict": 10,
-        "moralis_dict - ethereum_api_dict": 3,
-        "infura_dict - ethereum_api_dict": 3
+        "etherscan_dict - moralis_dict": 1000,
+        "etherscan_dict - infura_dict": 1000,
+        "etherscan_dict - ethereum_api_dict": 1000,
+        "moralis_dict - infura_dict": 1000,
+        "moralis_dict - ethereum_api_dict": 1000,
+        "infura_dict - ethereum_api_dict": 1000
     },
     "evaluation_ratio": {
         "etherscan_dict - moralis_dict": 1.0,
         "etherscan_dict - infura_dict": 1.0,
-        "etherscan_dict - ethereum_api_dict": 0.3,
+        "etherscan_dict - ethereum_api_dict": 1.0,
         "moralis_dict - infura_dict": 1.0,
-        "moralis_dict - ethereum_api_dict": 0.3,
-        "infura_dict - ethereum_api_dict": 0.3
+        "moralis_dict - ethereum_api_dict": 1.0,
+        "infura_dict - ethereum_api_dict": 1.0
     },
     "comparison_error": {
         "etherscan_dict - moralis_dict": [],
         "etherscan_dict - infura_dict": [],
-        "etherscan_dict - ethereum_api_dict": [
-            "0x9f2d38da73857293894b6b92cb0ad66543ac4c48",
-            "0x72bb27cb99f3e2c2cf90a98f707d30e4a201a071",
-            "0x3b816f5ce5e5df67465e0b86967e4f7138a61ed3",
-            "0x7b60f3f033e6d7808428c9f2dbc81682ff24984f",
-            "0x5fb7d40ac8d2e7a0eb9696630bcc86cacda40a38",
-            "0x2e05a304d3040f1399c8c20d2a9f659ae7521058",
-            "0x9e0e470aed18dde1362b4af0f19b53a1b5211ceb"
-        ],
+        "etherscan_dict - ethereum_api_dict": [],
         "moralis_dict - infura_dict": [],
-        "moralis_dict - ethereum_api_dict": [
-            "0x9f2d38da73857293894b6b92cb0ad66543ac4c48",
-            "0x72bb27cb99f3e2c2cf90a98f707d30e4a201a071",
-            "0x3b816f5ce5e5df67465e0b86967e4f7138a61ed3",
-            "0x7b60f3f033e6d7808428c9f2dbc81682ff24984f",
-            "0x5fb7d40ac8d2e7a0eb9696630bcc86cacda40a38",
-            "0x2e05a304d3040f1399c8c20d2a9f659ae7521058",
-            "0x9e0e470aed18dde1362b4af0f19b53a1b5211ceb"
-        ],
-        "infura_dict - ethereum_api_dict": [
-            "0x9f2d38da73857293894b6b92cb0ad66543ac4c48",
-            "0x72bb27cb99f3e2c2cf90a98f707d30e4a201a071",
-            "0x3b816f5ce5e5df67465e0b86967e4f7138a61ed3",
-            "0x7b60f3f033e6d7808428c9f2dbc81682ff24984f",
-            "0x5fb7d40ac8d2e7a0eb9696630bcc86cacda40a38",
-            "0x2e05a304d3040f1399c8c20d2a9f659ae7521058",
-            "0x9e0e470aed18dde1362b4af0f19b53a1b5211ceb"
-        ]
+        "moralis_dict - ethereum_api_dict": [],
+        "infura_dict - ethereum_api_dict": []
     }
 }

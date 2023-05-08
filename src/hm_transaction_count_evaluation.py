@@ -153,6 +153,7 @@ def create_comparison_chart(block_comparison_evaluation: dict):
     plt.figure(figsize=(12, 6))
     plt.bar(y_pos, comparison_values)
     plt.xticks(y_pos, comparison_labels, rotation=90)
+    plt.ylabel("Ratio")
 
     plt.title(f"Transaction Count Comparison (block count: {block_comparison_evaluation['block_count']})", {
               "fontsize": 10})
