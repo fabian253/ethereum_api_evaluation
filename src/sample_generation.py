@@ -1,6 +1,6 @@
 from connectors.moralis_connector import MoralisConnector
 from connectors.infura_connector import InfuraConnector
-import config
+import connectors.connector_config as connector_config
 import random
 import json
 
@@ -39,7 +39,7 @@ late_sample_latest_block = 17000000
 
 
 # create moralis connector
-infura_connector = InfuraConnector(config.INFURA_IP, config.INFURA_API_KEY)
+infura_connector = InfuraConnector(connector_config.INFURA_IP, connector_config.INFURA_API_KEY)
 
 
 def generate_random_block_sample(earliest_block: int, latest_block: int, sample_size: int):
