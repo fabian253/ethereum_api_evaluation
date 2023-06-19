@@ -3,7 +3,7 @@ CONTRACT_TABLE = (
     "contract_address char(42) PRIMARY KEY UNIQUE NOT NULL,"
     "name varchar(200) DEFAULT NULL,"
     "symbol varchar(50) DEFAULT NULL,"
-    "block_minted int DEFAULT NULL,"
+    "block_deployed int DEFAULT NULL,"
     "total_supply varchar(100) DEFAULT NULL,"
     "ERC20 bool NOT NULL DEFAULT FALSE,"
     "ERC20Metadata bool NOT NULL DEFAULT FALSE,"
