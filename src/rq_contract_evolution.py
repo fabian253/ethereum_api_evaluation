@@ -1,7 +1,7 @@
 from connectors.ethereum_api_connector import EthereumApiConnector
 from connectors.sql_database_connector import SqlDatabaseConnector
-import db_metadata.sql_tables as tables
-import config
+import connectors.sql_tables as tables
+import connectors.connector_config as connector_config
 import matplotlib.pyplot as plt
 from collections import Counter
 import numpy as np
@@ -11,17 +11,17 @@ from typing import Union
 with_contract_mint_history = True
 
 ethereum_api_connector = EthereumApiConnector(
-    config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
+    connector_config.ETHEREUM_API_IP, connector_config.ETHEREUM_API_USERNAME, connector_config.ETHEREUM_API_PASSWORD)
 
 # init sql database connector
 sql_db_connector = SqlDatabaseConnector(
-    config.SQL_DATABASE_HOST,
-    config.SQL_DATABASE_PORT,
-    config.SQL_DATABASE_USER,
-    config.SQL_DATABASE_PASSWORD,
-    config.SQL_DATABASE_NAME
+    connector_config.SQL_DATABASE_HOST,
+    connector_config.SQL_DATABASE_PORT,
+    connector_config.SQL_DATABASE_USER,
+    connector_config.SQL_DATABASE_PASSWORD,
+    connector_config.SQL_DATABASE_NAME
 )
-sql_db_connector.use_database(config.SQL_DATABASE_NAME)
+sql_db_connector.use_database(connector_config.SQL_DATABASE_NAME)
 sql_db_connector.create_table(tables.TRANSACTION_TABLE)
 
 
@@ -66,7 +66,7 @@ def create_contract_mint_history(from_block: Union[int, None] = None, to_block: 
             f"src/research_question_evaluation_ce/contract_mint_history_{token_standard}_{from_block}_{to_block}.png", format="PNG")
 
     contracts = sql_db_connector.query_data(
-        config.SQL_DATABASE_TABLE_CONTRACT, ["contract_address", "block_minted", "ERC20", "ERC721"], limit=100000)
+        connector_config.SQL_DATABASE_TABLE_CONTRACT, ["contract_address", "block_minted", "ERC20", "ERC721"], limit=100000)
 
     contracts = [
         contract for contract in contracts if contract["block_minted"] is not None]

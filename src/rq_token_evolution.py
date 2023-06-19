@@ -1,7 +1,7 @@
 from connectors.ethereum_api_connector import EthereumApiConnector
 from connectors.sql_database_connector import SqlDatabaseConnector
-import db_metadata.sql_tables as tables
-import config
+import connectors.sql_tables as tables
+import connectors.connector_config as connector_config
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -15,23 +15,23 @@ with_contract_transaction_history = True
 
 # init ethereum api connector
 ethereum_api_connector = EthereumApiConnector(
-    config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
+    connector_config.ETHEREUM_API_IP, connector_config.ETHEREUM_API_USERNAME, connector_config.ETHEREUM_API_PASSWORD)
 
 # init sql database connector
 sql_db_connector = SqlDatabaseConnector(
-    config.SQL_DATABASE_HOST,
-    config.SQL_DATABASE_PORT,
-    config.SQL_DATABASE_USER,
-    config.SQL_DATABASE_PASSWORD,
-    config.SQL_DATABASE_NAME
+    connector_config.SQL_DATABASE_HOST,
+    connector_config.SQL_DATABASE_PORT,
+    connector_config.SQL_DATABASE_USER,
+    connector_config.SQL_DATABASE_PASSWORD,
+    connector_config.SQL_DATABASE_NAME
 )
-sql_db_connector.use_database(config.SQL_DATABASE_NAME)
+sql_db_connector.use_database(connector_config.SQL_DATABASE_NAME)
 sql_db_connector.create_table(tables.TRANSACTION_TABLE)
 
 
 def create_token_transaction_graph(contract_address, token_id):
     token_transactions = sql_db_connector.query_token_transactions(
-        config.SQL_DATABASE_TABLE_TRANSACTION, contract_address, token_id)
+        connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address, token_id)
 
     token_transactions = [(transaction["from_address"], transaction["to_address"])
                           for transaction in token_transactions]
@@ -61,7 +61,7 @@ def create_token_transaction_graph(contract_address, token_id):
 
 def create_token_transaction_frequency_graph(contract_address: str):
     contract_transactions = sql_db_connector.query_erc721_contract_transactions(
-        config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+        connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
 
     token_occurrence = [transaction["token_id"]
                         for transaction in contract_transactions]
@@ -87,7 +87,7 @@ def create_token_transaction_frequency_graph(contract_address: str):
 
 def create_contract_transaction_history(contract_address: str):
     contract_transactions = sql_db_connector.query_erc721_contract_transactions(
-        config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+        connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
 
     block_occurrence = [transaction["block_number"]
                         for transaction in contract_transactions]

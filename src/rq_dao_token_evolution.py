@@ -1,7 +1,7 @@
 from connectors.ethereum_api_connector import EthereumApiConnector
 from connectors.sql_database_connector import SqlDatabaseConnector
-import db_metadata.sql_tables as tables
-import config
+import connectors.sql_tables as tables
+import connectors.connector_config as connector_config
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import Union
@@ -14,23 +14,23 @@ with_distribution_of_token_holder_count = True
 with_transaction_history = True
 
 ethereum_api_connector = EthereumApiConnector(
-    config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
+    connector_config.ETHEREUM_API_IP, connector_config.ETHEREUM_API_USERNAME, connector_config.ETHEREUM_API_PASSWORD)
 
 # init sql database connector
 sql_db_connector = SqlDatabaseConnector(
-    config.SQL_DATABASE_HOST,
-    config.SQL_DATABASE_PORT,
-    config.SQL_DATABASE_USER,
-    config.SQL_DATABASE_PASSWORD,
-    config.SQL_DATABASE_NAME
+    connector_config.SQL_DATABASE_HOST,
+    connector_config.SQL_DATABASE_PORT,
+    connector_config.SQL_DATABASE_USER,
+    connector_config.SQL_DATABASE_PASSWORD,
+    connector_config.SQL_DATABASE_NAME
 )
-sql_db_connector.use_database(config.SQL_DATABASE_NAME)
+sql_db_connector.use_database(connector_config.SQL_DATABASE_NAME)
 sql_db_connector.create_table(tables.TRANSACTION_TABLE)
 
 
 def query_dao_transactions(contract_address: str):
     contract_transactions = sql_db_connector.query_erc20_contract_transactions(
-        config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+        connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
 
     with open("src/research_question_evaluation_dao/dao_transactions.json", "w") as f:
         json.dump(contract_transactions, f, indent=4)

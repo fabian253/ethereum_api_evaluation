@@ -2,7 +2,7 @@ from connectors.etherscan_connector import EtherscanConnector
 from connectors.moralis_connector import MoralisConnector
 from connectors.infura_connector import InfuraConnector
 from connectors.ethereum_api_connector import EthereumApiConnector
-import config
+import connectors.connector_config as connector_config
 import json
 from datetime import datetime
 import numpy as np
@@ -14,15 +14,15 @@ with_request_time_processing = False
 with_performance_evaluation_chart = True
 
 etherscan_connector = EtherscanConnector(
-    config.ETHERSCAN_IP, config.ETHERSCAN_API_KEY)
+    connector_config.ETHERSCAN_IP, connector_config.ETHERSCAN_API_KEY)
 
 moralis_connector = MoralisConnector(
-    config.MORALIS_IP, config.MORALIS_API_KEY)
+    connector_config.MORALIS_IP, connector_config.MORALIS_API_KEY)
 
-infura_connector = InfuraConnector(config.INFURA_IP, config.INFURA_API_KEY)
+infura_connector = InfuraConnector(connector_config.INFURA_IP, connector_config.INFURA_API_KEY)
 
 ethereum_api_connector = EthereumApiConnector(
-    config.ETHEREUM_API_IP, config.ETHEREUM_API_USERNAME, config.ETHEREUM_API_PASSWORD)
+    connector_config.ETHEREUM_API_IP, connector_config.ETHEREUM_API_USERNAME, connector_config.ETHEREUM_API_PASSWORD)
 
 
 def measure_block_request_times_from_all_apis(block_identifier):
