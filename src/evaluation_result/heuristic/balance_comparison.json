@@ -1,0 +1,112 @@
+[
+    {
+        "wallet_address": "0x9f2d38da73857293894b6b92cb0ad66543ac4c48",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0xa83996cace93b2af6c54222a51da5dbda8526172",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": true,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
+        }
+    },
+    {
+        "wallet_address": "0x72bb27cb99f3e2c2cf90a98f707d30e4a201a071",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x3b816f5ce5e5df67465e0b86967e4f7138a61ed3",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x7b60f3f033e6d7808428c9f2dbc81682ff24984f",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x0d17ad10b21e0ecb0fea1acc1609705964e843e0",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": true,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
+        }
+    },
+    {
+        "wallet_address": "0x5fb7d40ac8d2e7a0eb9696630bcc86cacda40a38",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x2e05a304d3040f1399c8c20d2a9f659ae7521058",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x9e0e470aed18dde1362b4af0f19b53a1b5211ceb",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": false,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": false,
+            "infura_dict - ethereum_api_dict": false
+        }
+    },
+    {
+        "wallet_address": "0x19ddc2ef2b427843e581f752811c45ac597ba67e",
+        "comparison": {
+            "etherscan_dict - moralis_dict": true,
+            "etherscan_dict - infura_dict": true,
+            "etherscan_dict - ethereum_api_dict": true,
+            "moralis_dict - infura_dict": true,
+            "moralis_dict - ethereum_api_dict": true,
+            "infura_dict - ethereum_api_dict": true
+        }
+    }
+]

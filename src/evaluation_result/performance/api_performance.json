@@ -1,0 +1,202 @@
+[
+    {
+        "method": "get_block",
+        "block_identifier": 6395765,
+        "request_time": {
+            "etherscan": 0.647104,
+            "moralis": 0.642871,
+            "infura": 0.589164,
+            "ethereum_api": 0.476057
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 11237854,
+        "request_time": {
+            "etherscan": 0.587916,
+            "moralis": 0.678223,
+            "infura": 0.49206,
+            "ethereum_api": 0.623023
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 8714247,
+        "request_time": {
+            "etherscan": 0.597172,
+            "moralis": 0.264075,
+            "infura": 0.504415,
+            "ethereum_api": 0.553217
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 6134458,
+        "request_time": {
+            "etherscan": 0.604665,
+            "moralis": 0.340511,
+            "infura": 0.501359,
+            "ethereum_api": 0.703976
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 3349559,
+        "request_time": {
+            "etherscan": 0.592957,
+            "moralis": 0.287942,
+            "infura": 0.4957,
+            "ethereum_api": 0.468567
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 9828143,
+        "request_time": {
+            "etherscan": 0.601317,
+            "moralis": 0.45093,
+            "infura": 0.473762,
+            "ethereum_api": 0.53232
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 9433957,
+        "request_time": {
+            "etherscan": 0.619221,
+            "moralis": 0.32619,
+            "infura": 0.477797,
+            "ethereum_api": 0.40381
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 12212426,
+        "request_time": {
+            "etherscan": 0.592992,
+            "moralis": 0.68491,
+            "infura": 0.487636,
+            "ethereum_api": 0.594678
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 5701598,
+        "request_time": {
+            "etherscan": 0.602377,
+            "moralis": 0.357673,
+            "infura": 0.478631,
+            "ethereum_api": 0.431699
+        }
+    },
+    {
+        "method": "get_block",
+        "block_identifier": 3875276,
+        "request_time": {
+            "etherscan": 0.607181,
+            "moralis": 0.37019,
+            "infura": 0.482003,
+            "ethereum_api": 0.559499
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0xe6e0b70bfceaf1cf4d2b43931937b25d8e388543f3950be1045e93d7968fef11",
+        "request_time": {
+            "etherscan": 0.618921,
+            "moralis": 0.408043,
+            "infura": 0.463139,
+            "ethereum_api": 0.556354
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0xf6e0235cb63cae6b59da017397516cf4db33f151f906f07a99f05d88b49aedaa",
+        "request_time": {
+            "etherscan": 0.604226,
+            "moralis": 0.260268,
+            "infura": 0.484401,
+            "ethereum_api": 0.392051
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0x1b649d03a932e4b63a9fbaec3769fc5d1a19f371aa7dcf9ef307463c3fa346c8",
+        "request_time": {
+            "etherscan": 0.692158,
+            "moralis": 0.258538,
+            "infura": 0.486533,
+            "ethereum_api": 0.615622
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0xa88421d537992710b97816e8157735511b13876cdec4424748ba0d3231b83dee",
+        "request_time": {
+            "etherscan": 0.605134,
+            "moralis": 0.26941,
+            "infura": 0.480324,
+            "ethereum_api": 0.488326
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0x99e26f76fe29bcd4ada237403eafddf6d29f5e51279a66c6c6ac04a78d5c0cc8",
+        "request_time": {
+            "etherscan": 0.611783,
+            "moralis": 0.260964,
+            "infura": 0.475856,
+            "ethereum_api": 0.694592
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0x2a47b8b1ba2bd97ff6339939fa085a066b54b937e1011308991b911506710ff3",
+        "request_time": {
+            "etherscan": 0.581005,
+            "moralis": 0.347377,
+            "infura": 0.485245,
+            "ethereum_api": 0.635486
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0xab0cb6beab255331efe34b1d4ce01ccae6cecd9af2aac66bf33185c305f638e5",
+        "request_time": {
+            "etherscan": 0.613354,
+            "moralis": 0.26088,
+            "infura": 0.477495,
+            "ethereum_api": 0.490429
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0xd75de866e904cf70419c8becbcb35227d7678db8b6c7b5fd4aaffe0a83abfe3b",
+        "request_time": {
+            "etherscan": 0.594442,
+            "moralis": 0.271686,
+            "infura": 0.476993,
+            "ethereum_api": 0.39662
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0x88969a6b9bdaa3ae094c18ee435110d52c1f5f71be8878797423e85899d57f5b",
+        "request_time": {
+            "etherscan": 0.602433,
+            "moralis": 0.289044,
+            "infura": 0.498452,
+            "ethereum_api": 0.697179
+        }
+    },
+    {
+        "method": "get_transaction",
+        "transacion_hash": "0x290930b9fe4309c3470b17303fdefe426f0676c989e72f97704fce182f82374d",
+        "request_time": {
+            "etherscan": 0.602771,
+            "moralis": 0.240232,
+            "infura": 0.489291,
+            "ethereum_api": 0.175357
+        }
+    }
+]
