@@ -1,5 +1,5 @@
 {
-    "early_transaction_sample": [
+    "old_transaction_sample": [
         "0xa1f45994c104bcc7cd388e236a46522ed6ce693c64d7b7aaf6bbee5e1cef7a00",
         "0x607d7e53c65e30edef906605f143836ba3dd1f1d51d233c85bbc436089bbba2b",
         "0x7d24633a225f12dd674e412b850634f9947c40e19e7d75d900c78080ddec29bb",
@@ -1001,7 +1001,7 @@
         "0xadb18b4b3817bba49021afd5724275f8e39c785fdbde14ddf46d4d5a6e0eac25",
         "0x71213b8e44a24b366c52c99a27c42b988d08b40a9a85e485fe5ec6de923398bf"
     ],
-    "late_transaction_sample": [
+    "new_transaction_sample": [
         "0x36e9266a0dac60381d87beed2d6b5ff221423d889ac16e8197797d912792a390",
         "0x648035a2ae97b94d89dc8976666b423cd5187ff12a278b434ffc9984c2e7c6a5",
         "0xc0d869aaea986f342915447dd39c7d3b5fcf557d4d59f39f54225635a2d610ff",

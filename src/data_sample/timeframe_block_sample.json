@@ -1,5 +1,5 @@
 {
-    "early_block_sample": [
+    "old_block_sample": [
         1884225,
         1876269,
         1181419,
@@ -1001,7 +1001,7 @@
         1696293,
         1051779
     ],
-    "late_block_sample": [
+    "new_block_sample": [
         16662714,
         16546573,
         16498431,
