@@ -3,31 +3,35 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
+from typing import Union
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
-def measure_block_request_times_from_all_apis(block_identifier, timeframe: str):
-    # etherscan
-    start_time = datetime.now()
-    etherscan_connector.get_block(block_identifier)
-    etherscan_time = (datetime.now() - start_time).total_seconds()
-    # moralis
-    start_time = datetime.now()
-    moralis_connector.get_block(block_identifier)
-    moralis_time = (datetime.now() - start_time).total_seconds()
-    # infura
-    start_time = datetime.now()
-    infura_connector.get_block(block_identifier)
-    infura_time = (datetime.now() - start_time).total_seconds()
+def measure_block_request_times_from_all_providers(block_identifier: Union[str, int], timeframe: str):
     # ethereum api
     start_time = datetime.now()
     ethereum_api_connector.get_block(block_identifier)
     ethereum_api_time = (datetime.now() - start_time).total_seconds()
+    # etherscan
+    start_time = datetime.now()
+    etherscan_connector.get_block(block_identifier)
+    etherscan_time = (datetime.now() - start_time).total_seconds()
+    # infura
+    start_time = datetime.now()
+    infura_connector.get_block(block_identifier)
+    infura_time = (datetime.now() - start_time).total_seconds()
+    # moralis
+    start_time = datetime.now()
+    moralis_connector.get_block(block_identifier)
+    moralis_time = (datetime.now() - start_time).total_seconds()
 
     request_time = {
-        "etherscan": etherscan_time,
-        "moralis": moralis_time,
-        "infura": infura_time,
         "ethereum_api": ethereum_api_time,
+        "etherscan": etherscan_time,
+        "infura": infura_time,
+        "moralis": moralis_time
     }
 
     return {
@@ -38,29 +42,29 @@ def measure_block_request_times_from_all_apis(block_identifier, timeframe: str):
     }
 
 
-def measure_transaction_request_times_from_all_apis(transaction_hash, timeframe: str):
-    # etherscan
-    start_time = datetime.now()
-    etherscan_connector.get_transaction(transaction_hash)
-    etherscan_time = (datetime.now() - start_time).total_seconds()
-    # moralis
-    start_time = datetime.now()
-    moralis_connector.get_transaction(transaction_hash)
-    moralis_time = (datetime.now() - start_time).total_seconds()
-    # infura
-    start_time = datetime.now()
-    infura_connector.get_transaction(transaction_hash)
-    infura_time = (datetime.now() - start_time).total_seconds()
+def measure_transaction_request_times_from_all_providers(transaction_hash: str, timeframe: str):
     # ethereum api
     start_time = datetime.now()
     ethereum_api_connector.get_transaction(transaction_hash)
     ethereum_api_time = (datetime.now() - start_time).total_seconds()
+    # etherscan
+    start_time = datetime.now()
+    etherscan_connector.get_transaction(transaction_hash)
+    etherscan_time = (datetime.now() - start_time).total_seconds()
+    # infura
+    start_time = datetime.now()
+    infura_connector.get_transaction(transaction_hash)
+    infura_time = (datetime.now() - start_time).total_seconds()
+    # moralis
+    start_time = datetime.now()
+    moralis_connector.get_transaction(transaction_hash)
+    moralis_time = (datetime.now() - start_time).total_seconds()
 
     request_time = {
-        "etherscan": etherscan_time,
-        "moralis": moralis_time,
-        "infura": infura_time,
         "ethereum_api": ethereum_api_time,
+        "etherscan": etherscan_time,
+        "infura": infura_time,
+        "moralis": moralis_time
     }
 
     return {
@@ -71,36 +75,41 @@ def measure_transaction_request_times_from_all_apis(transaction_hash, timeframe:
     }
 
 
-def process_early_late_block_sample(block_sample, timeframe: str):
+def process_timeframe_block_sample(block_sample, timeframe: str):
     request_time_performance = []
 
     for idx, block_identifier in enumerate(block_sample):
-        request_time = measure_block_request_times_from_all_apis(
+        request_time = measure_block_request_times_from_all_providers(
             block_identifier, timeframe)
 
         request_time_performance.append(request_time)
 
-        print(f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
+        logging.info(
+            f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
 
     return request_time_performance
 
 
-def process_early_late_transaction_sample(transaction_sample, timeframe: str):
+def process_timeframe_transaction_sample(transaction_sample, timeframe: str):
     request_time_performance = []
 
     for idx, transaction_hash in enumerate(transaction_sample):
-        request_time = measure_transaction_request_times_from_all_apis(
-            transaction_hash, timeframe)
+        try:
+            request_time = measure_transaction_request_times_from_all_providers(
+                transaction_hash, timeframe)
 
-        request_time_performance.append(request_time)
+            request_time_performance.append(request_time)
 
-        print(
-            f"Transaction: {transaction_hash} done [{idx+1}/{len(transaction_sample)}]")
+            logging.info(
+                f"Transaction: {transaction_hash} done [{idx+1}/{len(transaction_sample)}]")
+        except:
+            logging.error(
+                f"Transaction: {transaction_hash} error [{idx+1}/{len(transaction_sample)}]")
 
     return request_time_performance
 
 
-def evaluate_single_request_time_performance(request_time_performance, method, timeframe: str):
+def evaluate_single_request_time_performance(request_time_performance: list, method: str, timeframe: str):
     min_request_time_dict = {}
     max_request_time_dict = {}
     average_request_time_dict = {}
@@ -129,6 +138,9 @@ def evaluate_single_request_time_performance(request_time_performance, method, t
     average_request_time_dict = {key: (value/len(request_time_performance))
                                  for key, value in average_request_time_dict.items()}
 
+    percentile_80_dict = {key: np.percentile(value, 80)
+                          for key, value in request_time_dict.items()}
+
     percentile_95_dict = {key: np.percentile(value, 95)
                           for key, value in request_time_dict.items()}
 
@@ -141,12 +153,13 @@ def evaluate_single_request_time_performance(request_time_performance, method, t
         "min_request_time": min_request_time_dict,
         "max_request_time": max_request_time_dict,
         "average_request_time": average_request_time_dict,
+        "80th_percentile": percentile_80_dict,
         "95th_percentile": percentile_95_dict,
         "99th_percentile": percentile_99_dict
     }
 
 
-def evaluate_early_late_request_time_performance(request_time_performance):
+def evaluate_timeframe_request_time_performance(request_time_performance):
     request_time_performance_dict = {}
 
     # split request time for method and timeframe
@@ -158,40 +171,40 @@ def evaluate_early_late_request_time_performance(request_time_performance):
         request_time_performance_dict[(request_time["method"], request_time["timeframe"])].append(
             request_time)
 
-    # evaluate overall early and late performance
-    overall_early_performance = evaluate_single_request_time_performance(request_time_performance_dict[(
-        "get_block", "early")] + request_time_performance_dict[("get_transaction", "early")], "overall", "early")
+    # evaluate overall old and new performance
+    overall_old_performance = evaluate_single_request_time_performance(request_time_performance_dict[(
+        "get_block", "old")] + request_time_performance_dict[("get_transaction", "old")], "overall", "old")
 
-    overall_late_performance = evaluate_single_request_time_performance(request_time_performance_dict[(
-        "get_block", "late")] + request_time_performance_dict[("get_transaction", "late")], "overall", "late")
+    overall_new_performance = evaluate_single_request_time_performance(request_time_performance_dict[(
+        "get_block", "new")] + request_time_performance_dict[("get_transaction", "new")], "overall", "new")
 
-    # evaluate overall performance diff (diff between late and early -> negative number: late is faster)
+    # evaluate overall performance diff (diff between new and old -> negative number: new is faster)
     overall_performance_difference = {}
     overall_performance_difference_percentage = {}
-    for key in overall_late_performance.keys():
+    for key in overall_new_performance.keys():
         if key == "method" or key == "timeframe":
             overall_performance_difference[key] = "overall"
             overall_performance_difference_percentage[key] = "overall"
         else:
             tmp_performance_comparison = {}
             tmp_performance_comparison_percentage = {}
-            for api_provider in overall_late_performance[key].keys():
-                tmp_performance_comparison[api_provider] = overall_late_performance[key][api_provider] - \
-                    overall_early_performance[key][api_provider]
+            for api_provider in overall_new_performance[key].keys():
+                tmp_performance_comparison[api_provider] = overall_new_performance[key][api_provider] - \
+                    overall_old_performance[key][api_provider]
 
                 tmp_performance_comparison_percentage[api_provider] = tmp_performance_comparison[
-                    api_provider] / overall_early_performance[key][api_provider] * 100
+                    api_provider] / overall_old_performance[key][api_provider] * 100
 
                 overall_performance_difference[key] = tmp_performance_comparison
                 overall_performance_difference_percentage[key] = tmp_performance_comparison_percentage
 
     return_dict = {
-        "block_count": len(request_time_performance_dict[("get_block", "early")]),
-        "transaction_count": len(request_time_performance_dict[("get_transaction", "early")]),
+        "block_count": len(request_time_performance_dict[("get_block", "old")]),
+        "transaction_count": len(request_time_performance_dict[("get_transaction", "old")]),
         "overall_performance_difference": overall_performance_difference,
         "overall_performance_difference_percentage": overall_performance_difference_percentage,
-        "overall_early_performance": overall_early_performance,
-        "overall_late_performance": overall_late_performance
+        "overall_old_performance": overall_old_performance,
+        "overall_new_performance": overall_new_performance
     }
 
     for key, value in request_time_performance_dict.items():
@@ -201,7 +214,7 @@ def evaluate_early_late_request_time_performance(request_time_performance):
     return return_dict
 
 
-def create_early_late_request_time_comparison_chart(request_performance_evaluation: dict):
+def create_timeframe_request_time_performance_chart(request_performance_evaluation: dict, file_path: str):
     def create_chart(performance: dict, block_count: int, transaction_count: int, type: str):
         etherscan_perf = []
         moralis_perf = []
@@ -217,29 +230,29 @@ def create_early_late_request_time_comparison_chart(request_performance_evaluati
                 ethereum_api_perf.append(v["ethereum_api"])
                 x_labels.append(k)
 
-        x = np.arange(5)
+        x = np.arange(6)
         width = 0.2
 
         plt.figure(figsize=(12, 6))
-        plt.bar(x-0.3, etherscan_perf, width, color='cyan')
-        plt.bar(x-0.1, moralis_perf, width, color='orange')
+        plt.bar(x-0.3, ethereum_api_perf, width, color='blue')
+        plt.bar(x-0.1, etherscan_perf, width, color='cyan')
         plt.bar(x+0.1, infura_perf, width, color='green')
-        plt.bar(x+0.3, ethereum_api_perf, width, color='blue')
+        plt.bar(x+0.3, moralis_perf, width, color='orange')
         plt.xticks(x, x_labels)
         plt.ylabel("Time (%)") if "percentage" in type else plt.ylabel(
             "Time (s)")
-        plt.legend(["etherscan", "moralis", "infura", "ethereum_api"])
-        plt.title(f"Request Performance Early-Late Comparison: {performance['method']}\ntype: {type}, timeframe: {performance['timeframe']}, block_count: {block_count}, transaction_count: {transaction_count}", {
+        plt.legend(["ethereum_api", "etherscan", "infura", "moralis"])
+        plt.title(f"Performance Evaluation: Timeframe Comparison ({performance['method']})\ntype: {type}, timeframe: {performance['timeframe']}, block_count: {block_count}, transaction_count: {transaction_count}", {
                   "fontsize": 10})
         plt.tight_layout()
         plt.savefig(
-            f"src/performance_evaluation/request_performance_early_late_{performance['method']}_{type}.png", format="PNG")
+            f"{file_path}/request_performance_timeframe_{performance['method']}_{type}.png", format="PNG")
 
     create_chart(request_performance_evaluation["overall_performance_difference"],
                  request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "difference")
     create_chart(request_performance_evaluation["overall_performance_difference_percentage"],
                  request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "difference_percentage")
-    create_chart(request_performance_evaluation["overall_early_performance"],
-                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "early")
-    create_chart(request_performance_evaluation["overall_late_performance"],
-                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "late")
+    create_chart(request_performance_evaluation["overall_old_performance"],
+                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "old")
+    create_chart(request_performance_evaluation["overall_new_performance"],
+                 request_performance_evaluation["block_count"], request_performance_evaluation["transaction_count"], "new")

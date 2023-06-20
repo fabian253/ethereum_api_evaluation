@@ -1,16 +1,18 @@
 from connectors import ethereum_api_connector, etherscan_connector, moralis_connector, infura_connector
 from deepdiff import DeepDiff
-from datetime import datetime, timezone
 import itertools
 import copy
 import matplotlib.pyplot as plt
 import numpy as np
-from typing import Union
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def get_transaction_from_all_providers(transaction_hash: str) -> dict:
+    # TODO: change to ethereum api connector
     transaction_by_provider = {
-        "ethereum_api": ethereum_api_connector.get_transaction(transaction_hash),
+        "ethereum_api": infura_connector.get_transaction(transaction_hash),
         "etherscan": etherscan_connector.get_transaction(transaction_hash),
         "infura": infura_connector.get_transaction(transaction_hash),
         "moralis": moralis_connector.get_transaction(transaction_hash)
@@ -33,17 +35,9 @@ def preprocess_transaction_for_all_providers(transaction_by_provider: dict) -> d
             new_key = "".join(new_key)
             moralis_transaction[new_key] = moralis_transaction.pop(key)
 
-    # date to hex for moralis
-    moralis_transaction["timestamp"] = hex(int(datetime.strptime(
-        moralis_transaction["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc).timestamp()))
-
     # filter for matching keys
     matching_keys = list(set(ethereum_api_transaction.keys()) & set(
         etherscan_transaction.keys()) & set(infura_transaction.keys()) & set(moralis_transaction.keys()))
-
-    # remove single keys
-    if "totalDifficulty" in matching_keys:
-        matching_keys.remove("totalDifficulty")
 
     for transaction in [ethereum_api_transaction, etherscan_transaction, infura_transaction, moralis_transaction]:
         for key in list(transaction.keys()):
@@ -94,19 +88,23 @@ def process_transaction_sample(transaction_sample: list):
     transaction_sample_conformity = []
 
     for idx, transaction_hash in enumerate(transaction_sample):
-        transaction_by_provider = get_transaction_from_all_providers(
-            transaction_hash)
+        try:
+            transaction_by_provider = get_transaction_from_all_providers(
+                transaction_hash)
 
-        preprocessed_transaction = preprocess_transaction_for_all_providers(
-            transaction_by_provider)
+            preprocessed_transaction = preprocess_transaction_for_all_providers(
+                transaction_by_provider)
 
-        transaction_conformity = process_transaction_conformity(
-            preprocessed_transaction, transaction_hash)
+            transaction_conformity = process_transaction_conformity(
+                preprocessed_transaction, transaction_hash)
 
-        transaction_sample_conformity.append(transaction_conformity)
+            transaction_sample_conformity.append(transaction_conformity)
 
-        print(
-            f"Transaction: {transaction_hash} done [{idx+1}/{len(transaction_sample)}]")
+            logging.info(
+                f"Transaction: {transaction_hash} done [{idx+1}/{len(transaction_sample)}]")
+        except:
+            logging.error(
+                f"Transaction: {transaction_hash} error [{idx+1}/{len(transaction_sample)}]")
 
     return transaction_sample_conformity
 
@@ -115,7 +113,7 @@ def evaluate_transaction_sample_conformity(transaction_sample_conformity: list):
     transaction_sample_evaluation = {}
     evaluation_error = {}
 
-    for key in transaction_sample_evaluation[0]["conformity"].keys():
+    for key in transaction_sample_conformity[0]["conformity"].keys():
         transaction_sample_evaluation[key] = 0
         evaluation_error[key] = []
 

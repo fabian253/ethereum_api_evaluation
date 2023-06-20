@@ -4,6 +4,9 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import Union
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def get_transaction_count_from_all_providers(block_identifier: Union[int, str]) -> dict:
@@ -68,19 +71,24 @@ def process_transaction_count_sample(block_sample: list):
     transaction_count_sample_conformity = []
 
     for idx, block_identifier in enumerate(block_sample):
-        transaction_count_by_provider = get_transaction_count_from_all_providers(
-            block_identifier)
+        try:
+            transaction_count_by_provider = get_transaction_count_from_all_providers(
+                block_identifier)
 
-        preprocessed_transaction_count = preprocess_transaction_count_for_all_providers(
-            transaction_count_by_provider)
+            preprocessed_transaction_count = preprocess_transaction_count_for_all_providers(
+                transaction_count_by_provider)
 
-        transaction_count_conformity = process_transaction_count_conformity(
-            preprocessed_transaction_count, block_identifier)
+            transaction_count_conformity = process_transaction_count_conformity(
+                preprocessed_transaction_count, block_identifier)
 
-        transaction_count_sample_conformity.append(
-            transaction_count_conformity)
+            transaction_count_sample_conformity.append(
+                transaction_count_conformity)
 
-        print(f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
+            logging.info(
+                f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
+        except:
+            logging.error(
+                f"Block: {block_identifier} error [{idx+1}/{len(block_sample)}]")
 
     return transaction_count_sample_conformity
 

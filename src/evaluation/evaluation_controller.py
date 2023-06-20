@@ -1,6 +1,10 @@
 import evaluation.data_correctness as data_correctness
 import evaluation.heuristic as heuristic
+import evaluation.performance as performance
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 class EvaluationController():
@@ -9,17 +13,20 @@ class EvaluationController():
                  block_sample,
                  transaction_sample,
                  wallet_address_sample,
-                 early_late_block_sample,
-                 early_late_transaction_sample) -> None:
+                 timeframe_block_sample,
+                 timeframe_transaction_sample) -> None:
         self.block_sample = block_sample
         self.transaction_sample = transaction_sample
         self.wallet_address_sample = wallet_address_sample
-        self.early_late_block_sample = early_late_block_sample
-        self.early_late_transaction_sample = early_late_transaction_sample
+        self.timeframe_block_sample = timeframe_block_sample
+        self.timeframe_transaction_sample = timeframe_transaction_sample
 
     def evaluate_data_correctness(self, eval_block_correctness: bool, eval_transaction_correctness: bool, file_path: str):
         # evaluate block correctness
         if eval_block_correctness:
+            logging.info(
+                "Data Correctness Evaluation started (Block Correctness)")
+
             block_sample_conformity = data_correctness.process_block_sample(
                 self.block_sample)
 
@@ -35,8 +42,14 @@ class EvaluationController():
             data_correctness.create_block_correctness_chart(
                 block_sample_evaluation, f"{file_path}/block_correctness_evaluation.png")
 
+            logging.info(
+                "Data Correctness Evaluation done (Block Correctness)")
+
         # evaluate transaction correctness
         if eval_transaction_correctness:
+            logging.info(
+                "Data Correctness Evaluation started (Transaction Correctness)")
+
             transaction_sample_conformity = data_correctness.process_transaction_sample(
                 self.transaction_sample)
 
@@ -52,9 +65,14 @@ class EvaluationController():
             data_correctness.create_transaction_correctness_chart(
                 transaction_sample_evaluation, f"{file_path}/transaction_correctness_evaluation.png")
 
+            logging.info(
+                "Data Correctness Evaluation done (Transaction Correctness)")
+
     def evaluate_heuristic(self, eval_transaction_count: bool, eval_wallet_balance: bool, file_path: str):
         # evaluate transaction count
         if eval_transaction_count:
+            logging.info("Heuristic Evaluation started (Transaction Count)")
+
             transaction_count_sample_conformity = heuristic.process_transaction_count_sample(
                 self.block_sample)
 
@@ -70,8 +88,12 @@ class EvaluationController():
             heuristic.create_transaction_count_correctness_chart(
                 transaction_count_sample_evaluation, f"{file_path}/transaction_count_evaluation.png")
 
+            logging.info("Heuristic Evaluation done (Transaction Count)")
+
         # evaluate wallet balance
         if eval_wallet_balance:
+            logging.info("Heuristic Evaluation started (Wallet Balance)")
+
             wallet_balance_sample_conformity = heuristic.process_balance_sample(
                 self.wallet_address_sample)
 
@@ -85,4 +107,66 @@ class EvaluationController():
                 json.dump(wallet_balance_sample_evaluation, f, indent=4)
 
             heuristic.create_wallet_balance_correctness_chart(
-                transaction_count_sample_evaluation, f"{file_path}/wallet_balance_evaluation.png")
+                wallet_balance_sample_evaluation, f"{file_path}/wallet_balance_evaluation.png")
+
+            logging.info("Heuristic Evaluation done (Wallet Balance)")
+
+    def evaluate_performance(self, eval_api_provider_performance: bool, eval_timeframe_performance: bool, file_path: str):
+        # api provider performance
+        if eval_api_provider_performance:
+            logging.info("Performance Evaluation started (API Provider)")
+
+            block_request_time_performance = performance.process_block_sample(
+                self.block_sample)
+
+            transaction_request_time_performance = performance.process_transaction_sample(
+                self.transaction_sample)
+
+            request_time_performance = block_request_time_performance + \
+                transaction_request_time_performance
+
+            with open(f"{file_path}/api_provider_performance.json", "w") as f:
+                json.dump(request_time_performance, f, indent=4)
+
+            request_performance_evaluation = performance.evaluate_request_time_performance(
+                request_time_performance)
+
+            with open(f"{file_path}/api_performance_evaluation.json", "w") as f:
+                json.dump(request_performance_evaluation, f, indent=4)
+
+            performance.create_request_time_performance_chart(
+                request_performance_evaluation, file_path)
+
+            logging.info("Performance Evaluation done (API Provider)")
+
+        # timeframe performance
+        if eval_timeframe_performance:
+            logging.info("Performance Evaluation started (Timeframe)")
+
+            old_block_request_time_performance = performance.process_timeframe_block_sample(
+                self.timeframe_block_sample["old_block_sample"], "old")
+            new_block_request_time_performance = performance.process_timeframe_block_sample(
+                self.timeframe_block_sample["new_block_sample"], "new")
+
+            old_transaction_request_time_performance = performance.process_timeframe_transaction_sample(
+                self.timeframe_transaction_sample["old_transaction_sample"], "old")
+            new_transaction_request_time_performance = performance.process_timeframe_transaction_sample(
+                self.timeframe_transaction_sample["new_transaction_sample"], "new")
+
+            request_time_performance = old_block_request_time_performance + new_block_request_time_performance + \
+                old_transaction_request_time_performance + \
+                new_transaction_request_time_performance
+
+            with open(f"{file_path}/timeframe_performance.json", "w") as f:
+                json.dump(request_time_performance, f, indent=4)
+
+            request_performance_evaluation = performance.evaluate_timeframe_request_time_performance(
+                request_time_performance)
+
+            with open(f"{file_path}/timeframe_performance_evaluation.json", "w") as f:
+                json.dump(request_performance_evaluation, f, indent=4)
+
+            performance.create_timeframe_request_time_performance_chart(
+                request_performance_evaluation, file_path)
+
+            logging.info("Performance Evaluation done (Timeframe)")

@@ -3,7 +3,9 @@ from deepdiff import DeepDiff
 import itertools
 import matplotlib.pyplot as plt
 import numpy as np
-from typing import Union
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def get_balance_from_all_providers(wallet_address: str, block_identifier="latest") -> dict:
@@ -69,20 +71,24 @@ def process_balance_sample(wallet_address_sample: list, block_identifier="latest
     wallet_address_sample_conformity = []
 
     for idx, wallet_address in enumerate(wallet_address_sample):
-        balance_by_provider = get_balance_from_all_providers(
-            wallet_address, block_identifier)
+        try:
+            balance_by_provider = get_balance_from_all_providers(
+                wallet_address, block_identifier)
 
-        preprocessed_balance = preprocess_balance_for_all_providers(
-            balance_by_provider)
+            preprocessed_balance = preprocess_balance_for_all_providers(
+                balance_by_provider)
 
-        balance_conformity = process_balance_conformity(
-            preprocessed_balance, wallet_address)
+            balance_conformity = process_balance_conformity(
+                preprocessed_balance, wallet_address)
 
-        wallet_address_sample_conformity.append(
-            balance_conformity)
+            wallet_address_sample_conformity.append(
+                balance_conformity)
 
-        print(
-            f"Wallet Address: {wallet_address} done [{idx+1}/{len(wallet_address_sample)}]")
+            logging.info(
+                f"Wallet Address: {wallet_address} done [{idx+1}/{len(wallet_address_sample)}]")
+        except:
+            logging.error(
+                f"Wallet Address: {wallet_address} error [{idx+1}/{len(wallet_address_sample)}]")
 
     return wallet_address_sample_conformity
 

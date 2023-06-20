@@ -6,6 +6,9 @@ import copy
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import Union
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def get_block_from_all_providers(block_identifier: Union[int, str]) -> dict:
@@ -94,17 +97,22 @@ def process_block_sample(block_sample: list):
     block_sample_conformity = []
 
     for idx, block_identifier in enumerate(block_sample):
-        block_by_provider = get_block_from_all_providers(block_identifier)
+        try:
+            block_by_provider = get_block_from_all_providers(block_identifier)
 
-        preprocessed_block = preprocess_block_for_all_providers(
-            block_by_provider)
+            preprocessed_block = preprocess_block_for_all_providers(
+                block_by_provider)
 
-        block_conformity = process_block_conformity(
-            preprocessed_block, block_identifier)
+            block_conformity = process_block_conformity(
+                preprocessed_block, block_identifier)
 
-        block_sample_conformity.append(block_conformity)
+            block_sample_conformity.append(block_conformity)
 
-        print(f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
+            logging.info(
+                f"Block: {block_identifier} done [{idx+1}/{len(block_sample)}]")
+        except:
+            logging.error(
+                f"Block: {block_identifier} error [{idx+1}/{len(block_sample)}]")
 
     return block_sample_conformity
 
