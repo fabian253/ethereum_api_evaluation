@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 # Custom
-src/config.py
-src/mint_block_indexer.py
+src/connectors/connector_config.py
