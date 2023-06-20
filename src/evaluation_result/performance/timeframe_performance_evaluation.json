@@ -1,0 +1,324 @@
+{
+    "block_count": 2,
+    "transaction_count": 2,
+    "overall_performance_difference": {
+        "method": "overall",
+        "timeframe": "overall",
+        "min_request_time": {
+            "ethereum_api": 0.008048,
+            "etherscan": -0.012480000000000047,
+            "infura": 0.002915000000000001,
+            "moralis": 0.03200900000000001
+        },
+        "max_request_time": {
+            "ethereum_api": 0.008478000000000013,
+            "etherscan": -0.0961249999999999,
+            "infura": -0.018326000000000064,
+            "moralis": -0.20757200000000003
+        },
+        "average_request_time": {
+            "ethereum_api": 0.007137999999999992,
+            "etherscan": -0.035577250000000116,
+            "infura": 0.002403000000000044,
+            "moralis": -0.026351750000000007
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.005727599999999999,
+            "etherscan": -0.04952420000000002,
+            "infura": 0.004227399999999992,
+            "moralis": -0.055031600000000125
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.007790400000000017,
+            "etherscan": -0.08447479999999996,
+            "infura": -0.01268765000000005,
+            "moralis": -0.16943689999999995
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.008340480000000011,
+            "etherscan": -0.09379495999999987,
+            "infura": -0.01719833000000004,
+            "moralis": -0.19994498
+        }
+    },
+    "overall_performance_difference_percentage": {
+        "method": "overall",
+        "timeframe": "overall",
+        "min_request_time": {
+            "ethereum_api": 13.601487240155482,
+            "etherscan": -2.2496417337383257,
+            "infura": 0.6427316204113043,
+            "moralis": 16.311232731516167
+        },
+        "max_request_time": {
+            "ethereum_api": 9.845432058622027,
+            "etherscan": -14.523420290030234,
+            "infura": -3.349594506416443,
+            "moralis": -29.637985144740263
+        },
+        "average_request_time": {
+            "ethereum_api": 9.769416852859953,
+            "etherscan": -6.072174515974204,
+            "infura": 0.4947129229082746,
+            "moralis": -7.74877692870349
+        },
+        "80th_percentile": {
+            "ethereum_api": 7.028713218781521,
+            "etherscan": -8.198038001106445,
+            "infura": 0.8421145733191856,
+            "moralis": -12.960761334860749
+        },
+        "95th_percentile": {
+            "ethereum_api": 9.169988017242009,
+            "etherscan": -13.04789209433335,
+            "infura": -2.3678375045350064,
+            "moralis": -26.83430920423826
+        },
+        "99th_percentile": {
+            "ethereum_api": 9.711797454770561,
+            "etherscan": -14.233488277781461,
+            "infura": -3.1564945970248033,
+            "moralis": -29.122293077162194
+        }
+    },
+    "overall_old_performance": {
+        "method": "overall",
+        "timeframe": "old",
+        "min_request_time": {
+            "ethereum_api": 0.05917,
+            "etherscan": 0.554755,
+            "infura": 0.453533,
+            "moralis": 0.196239
+        },
+        "max_request_time": {
+            "ethereum_api": 0.086111,
+            "etherscan": 0.661862,
+            "infura": 0.547111,
+            "moralis": 0.700358
+        },
+        "average_request_time": {
+            "ethereum_api": 0.07306475,
+            "etherscan": 0.5859062500000001,
+            "infura": 0.48573625,
+            "moralis": 0.34007625
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.08148860000000001,
+            "etherscan": 0.6040982,
+            "infura": 0.5019982000000001,
+            "moralis": 0.4246016000000002
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.08495539999999999,
+            "etherscan": 0.6474210499999999,
+            "infura": 0.5358328,
+            "moralis": 0.6314188999999999
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.08587987999999999,
+            "etherscan": 0.6589738099999999,
+            "infura": 0.54485536,
+            "moralis": 0.6865701799999999
+        }
+    },
+    "overall_new_performance": {
+        "method": "overall",
+        "timeframe": "new",
+        "min_request_time": {
+            "ethereum_api": 0.067218,
+            "etherscan": 0.542275,
+            "infura": 0.456448,
+            "moralis": 0.228248
+        },
+        "max_request_time": {
+            "ethereum_api": 0.094589,
+            "etherscan": 0.565737,
+            "infura": 0.528785,
+            "moralis": 0.492786
+        },
+        "average_request_time": {
+            "ethereum_api": 0.08020274999999999,
+            "etherscan": 0.550329,
+            "infura": 0.48813925,
+            "moralis": 0.3137245
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.08721620000000001,
+            "etherscan": 0.554574,
+            "infura": 0.5062256,
+            "moralis": 0.36957000000000007
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.0927458,
+            "etherscan": 0.56294625,
+            "infura": 0.52314515,
+            "moralis": 0.46198199999999995
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.09422036,
+            "etherscan": 0.56517885,
+            "infura": 0.52765703,
+            "moralis": 0.4866251999999999
+        }
+    },
+    "get_block_old_performance": {
+        "method": "get_block",
+        "timeframe": "old",
+        "min_request_time": {
+            "ethereum_api": 0.068571,
+            "etherscan": 0.554755,
+            "infura": 0.471923,
+            "moralis": 0.196239
+        },
+        "max_request_time": {
+            "ethereum_api": 0.086111,
+            "etherscan": 0.565589,
+            "infura": 0.547111,
+            "moralis": 0.700358
+        },
+        "average_request_time": {
+            "ethereum_api": 0.077341,
+            "etherscan": 0.560172,
+            "infura": 0.509517,
+            "moralis": 0.44829850000000004
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.082603,
+            "etherscan": 0.5634222,
+            "infura": 0.5320734,
+            "moralis": 0.5995342
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.08523399999999999,
+            "etherscan": 0.5650473,
+            "infura": 0.5433516,
+            "moralis": 0.67515205
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.08593559999999999,
+            "etherscan": 0.56548066,
+            "infura": 0.54635912,
+            "moralis": 0.69531681
+        }
+    },
+    "get_block_new_performance": {
+        "method": "get_block",
+        "timeframe": "new",
+        "min_request_time": {
+            "ethereum_api": 0.082301,
+            "etherscan": 0.547132,
+            "infura": 0.456448,
+            "moralis": 0.287426
+        },
+        "max_request_time": {
+            "ethereum_api": 0.094589,
+            "etherscan": 0.565737,
+            "infura": 0.491186,
+            "moralis": 0.492786
+        },
+        "average_request_time": {
+            "ethereum_api": 0.088445,
+            "etherscan": 0.5564344999999999,
+            "infura": 0.47381700000000004,
+            "moralis": 0.390106
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.0921314,
+            "etherscan": 0.5620160000000001,
+            "infura": 0.4842384,
+            "moralis": 0.451714
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.0939746,
+            "etherscan": 0.56480675,
+            "infura": 0.4894491,
+            "moralis": 0.482518
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.09446612,
+            "etherscan": 0.56555095,
+            "infura": 0.49083862,
+            "moralis": 0.4907324
+        }
+    },
+    "get_transaction_old_performance": {
+        "method": "get_transaction",
+        "timeframe": "old",
+        "min_request_time": {
+            "ethereum_api": 0.05917,
+            "etherscan": 0.561419,
+            "infura": 0.453533,
+            "moralis": 0.222944
+        },
+        "max_request_time": {
+            "ethereum_api": 0.078407,
+            "etherscan": 0.661862,
+            "infura": 0.470378,
+            "moralis": 0.240764
+        },
+        "average_request_time": {
+            "ethereum_api": 0.0687885,
+            "etherscan": 0.6116405,
+            "infura": 0.4619555,
+            "moralis": 0.231854
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.0745596,
+            "etherscan": 0.6417733999999999,
+            "infura": 0.467009,
+            "moralis": 0.2372
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.07744515,
+            "etherscan": 0.65683985,
+            "infura": 0.46953575000000003,
+            "moralis": 0.239873
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.07821463000000001,
+            "etherscan": 0.66085757,
+            "infura": 0.47020955000000003,
+            "moralis": 0.24058580000000002
+        }
+    },
+    "get_transaction_new_performance": {
+        "method": "get_transaction",
+        "timeframe": "new",
+        "min_request_time": {
+            "ethereum_api": 0.067218,
+            "etherscan": 0.542275,
+            "infura": 0.476138,
+            "moralis": 0.228248
+        },
+        "max_request_time": {
+            "ethereum_api": 0.076703,
+            "etherscan": 0.546172,
+            "infura": 0.528785,
+            "moralis": 0.246438
+        },
+        "average_request_time": {
+            "ethereum_api": 0.0719605,
+            "etherscan": 0.5442235,
+            "infura": 0.5024615,
+            "moralis": 0.237343
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.074806,
+            "etherscan": 0.5453926,
+            "infura": 0.5182555999999999,
+            "moralis": 0.2428
+        },
+        "95th_percentile": {
+            "ethereum_api": 0.07622875,
+            "etherscan": 0.54597715,
+            "infura": 0.52615265,
+            "moralis": 0.24552849999999998
+        },
+        "99th_percentile": {
+            "ethereum_api": 0.07660815,
+            "etherscan": 0.54613303,
+            "infura": 0.52825853,
+            "moralis": 0.24625609999999998
+        }
+    }
+}

@@ -1,0 +1,90 @@
+[
+    {
+        "method": "get_block",
+        "timeframe": "old",
+        "block_identifier": 1884225,
+        "request_time": {
+            "ethereum_api": 0.068571,
+            "etherscan": 0.554755,
+            "infura": 0.547111,
+            "moralis": 0.700358
+        }
+    },
+    {
+        "method": "get_block",
+        "timeframe": "old",
+        "block_identifier": 1876269,
+        "request_time": {
+            "ethereum_api": 0.086111,
+            "etherscan": 0.565589,
+            "infura": 0.471923,
+            "moralis": 0.196239
+        }
+    },
+    {
+        "method": "get_block",
+        "timeframe": "new",
+        "block_identifier": 16662714,
+        "request_time": {
+            "ethereum_api": 0.082301,
+            "etherscan": 0.547132,
+            "infura": 0.456448,
+            "moralis": 0.492786
+        }
+    },
+    {
+        "method": "get_block",
+        "timeframe": "new",
+        "block_identifier": 16546573,
+        "request_time": {
+            "ethereum_api": 0.094589,
+            "etherscan": 0.565737,
+            "infura": 0.491186,
+            "moralis": 0.287426
+        }
+    },
+    {
+        "method": "get_transaction",
+        "timeframe": "old",
+        "transacion_hash": "0xa1f45994c104bcc7cd388e236a46522ed6ce693c64d7b7aaf6bbee5e1cef7a00",
+        "request_time": {
+            "ethereum_api": 0.05917,
+            "etherscan": 0.561419,
+            "infura": 0.453533,
+            "moralis": 0.222944
+        }
+    },
+    {
+        "method": "get_transaction",
+        "timeframe": "old",
+        "transacion_hash": "0x607d7e53c65e30edef906605f143836ba3dd1f1d51d233c85bbc436089bbba2b",
+        "request_time": {
+            "ethereum_api": 0.078407,
+            "etherscan": 0.661862,
+            "infura": 0.470378,
+            "moralis": 0.240764
+        }
+    },
+    {
+        "method": "get_transaction",
+        "timeframe": "new",
+        "transacion_hash": "0x36e9266a0dac60381d87beed2d6b5ff221423d889ac16e8197797d912792a390",
+        "request_time": {
+            "ethereum_api": 0.067218,
+            "etherscan": 0.542275,
+            "infura": 0.476138,
+            "moralis": 0.246438
+        }
+    },
+    {
+        "method": "get_transaction",
+        "timeframe": "new",
+        "transacion_hash": "0x648035a2ae97b94d89dc8976666b423cd5187ff12a278b434ffc9984c2e7c6a5",
+        "request_time": {
+            "ethereum_api": 0.076703,
+            "etherscan": 0.546172,
+            "infura": 0.528785,
+            "moralis": 0.228248
+        }
+    }
+]

@@ -1,0 +1,27 @@
+{
+    "wallet_address_sample_size": 2,
+    "wallet_address_sample_evaluation": {
+        "ethereum_api - etherscan": 2,
+        "ethereum_api - infura": 2,
+        "ethereum_api - moralis": 2,
+        "etherscan - infura": 2,
+        "etherscan - moralis": 2,
+        "infura - moralis": 2
+    },
+    "evaluation_ratio": {
+        "ethereum_api - etherscan": 1.0,
+        "ethereum_api - infura": 1.0,
+        "ethereum_api - moralis": 1.0,
+        "etherscan - infura": 1.0,
+        "etherscan - moralis": 1.0,
+        "infura - moralis": 1.0
+    },
+    "evaluation_error": {
+        "ethereum_api - etherscan": [],
+        "ethereum_api - infura": [],
+        "ethereum_api - moralis": [],
+        "etherscan - infura": [],
+        "etherscan - moralis": [],
+        "infura - moralis": []
+    }
+}

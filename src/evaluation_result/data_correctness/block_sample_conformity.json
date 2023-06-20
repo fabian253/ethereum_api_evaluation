@@ -1,0 +1,24 @@
+[
+    {
+        "block_identifier": 8759700,
+        "conformity": {
+            "ethereum_api - etherscan": true,
+            "ethereum_api - infura": true,
+            "ethereum_api - moralis": true,
+            "etherscan - infura": true,
+            "etherscan - moralis": true,
+            "infura - moralis": true
+        }
+    },
+    {
+        "block_identifier": 13823209,
+        "conformity": {
+            "ethereum_api - etherscan": true,
+            "ethereum_api - infura": true,
+            "ethereum_api - moralis": true,
+            "etherscan - infura": true,
+            "etherscan - moralis": true,
+            "infura - moralis": true
+        }
+    }
+]

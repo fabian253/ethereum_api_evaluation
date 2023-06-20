@@ -1,103 +1,121 @@
 {
-    "block_count": 1000,
-    "transaction_count": 1000,
+    "block_count": 2,
+    "transaction_count": 2,
     "overall_performance": {
         "method": "overall",
         "min_request_time": {
-            "etherscan": 0.581005,
-            "moralis": 0.240232,
-            "infura": 0.463139,
-            "ethereum_api": 0.175357
+            "ethereum_api": 0.086484,
+            "etherscan": 0.544661,
+            "infura": 0.454604,
+            "moralis": 0.225554
         },
         "max_request_time": {
-            "etherscan": 0.692158,
-            "moralis": 0.68491,
-            "infura": 0.589164,
-            "ethereum_api": 0.703976
+            "ethereum_api": 0.117081,
+            "etherscan": 0.557856,
+            "infura": 0.550409,
+            "moralis": 0.736539
         },
         "average_request_time": {
-            "etherscan": 0.6089564499999999,
-            "moralis": 0.36349784999999996,
-            "infura": 0.49001279999999997,
-            "ethereum_api": 0.5244431
+            "ethereum_api": 0.09501575,
+            "etherscan": 0.551363,
+            "infura": 0.49809475000000003,
+            "moralis": 0.367245
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.0998484,
+            "etherscan": 0.5550887999999999,
+            "infura": 0.5368676,
+            "moralis": 0.4626840000000002
         },
         "95th_percentile": {
-            "etherscan": 0.6493567,
-            "moralis": 0.6785573500000001,
-            "infura": 0.50865245,
-            "ethereum_api": 0.69751885
+            "ethereum_api": 0.11277285,
+            "etherscan": 0.5571642,
+            "infura": 0.54702365,
+            "moralis": 0.6680752499999999
         },
         "99th_percentile": {
-            "etherscan": 0.68359774,
-            "moralis": 0.68363947,
-            "infura": 0.5730616899999998,
-            "ethereum_api": 0.7026845700000001
+            "ethereum_api": 0.11621937,
+            "etherscan": 0.55771764,
+            "infura": 0.54973193,
+            "moralis": 0.7228462499999999
         }
     },
     "get_block_performance": {
         "method": "get_block",
         "min_request_time": {
-            "etherscan": 0.587916,
-            "moralis": 0.264075,
-            "infura": 0.473762,
-            "ethereum_api": 0.40381
+            "ethereum_api": 0.088138,
+            "etherscan": 0.544661,
+            "infura": 0.459526,
+            "moralis": 0.280114
         },
         "max_request_time": {
-            "etherscan": 0.647104,
-            "moralis": 0.68491,
-            "infura": 0.589164,
-            "ethereum_api": 0.703976
+            "ethereum_api": 0.117081,
+            "etherscan": 0.549691,
+            "infura": 0.550409,
+            "moralis": 0.736539
         },
         "average_request_time": {
-            "etherscan": 0.6052901999999999,
-            "moralis": 0.44035149999999995,
-            "infura": 0.49825269999999994,
-            "ethereum_api": 0.5346846000000001
+            "ethereum_api": 0.10260949999999999,
+            "etherscan": 0.547176,
+            "infura": 0.5049675,
+            "moralis": 0.5083265
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.1112924,
+            "etherscan": 0.548685,
+            "infura": 0.5322324,
+            "moralis": 0.6452540000000001
         },
         "95th_percentile": {
-            "etherscan": 0.6345566499999999,
-            "moralis": 0.68190085,
-            "infura": 0.5510269499999999,
-            "ethereum_api": 0.66754715
+            "ethereum_api": 0.11563385,
+            "etherscan": 0.5494395000000001,
+            "infura": 0.5458648500000001,
+            "moralis": 0.71371775
         },
         "99th_percentile": {
-            "etherscan": 0.64459453,
-            "moralis": 0.68430817,
-            "infura": 0.58153659,
-            "ethereum_api": 0.6966902300000001
+            "ethereum_api": 0.11679157,
+            "etherscan": 0.5496407000000001,
+            "infura": 0.5495001700000001,
+            "moralis": 0.73197475
         }
     },
     "get_transaction_performance": {
         "method": "get_transaction",
         "min_request_time": {
-            "etherscan": 0.581005,
-            "moralis": 0.240232,
-            "infura": 0.463139,
-            "ethereum_api": 0.175357
+            "ethereum_api": 0.086484,
+            "etherscan": 0.553244,
+            "infura": 0.454604,
+            "moralis": 0.225554
         },
         "max_request_time": {
-            "etherscan": 0.692158,
-            "moralis": 0.408043,
-            "infura": 0.498452,
-            "ethereum_api": 0.697179
+            "ethereum_api": 0.08836,
+            "etherscan": 0.557856,
+            "infura": 0.52784,
+            "moralis": 0.226773
         },
         "average_request_time": {
-            "etherscan": 0.6126227,
-            "moralis": 0.2866442,
-            "infura": 0.4817729,
-            "ethereum_api": 0.5142016
+            "ethereum_api": 0.087422,
+            "etherscan": 0.55555,
+            "infura": 0.491222,
+            "moralis": 0.22616350000000002
+        },
+        "80th_percentile": {
+            "ethereum_api": 0.0879848,
+            "etherscan": 0.5569336,
+            "infura": 0.5131928,
+            "moralis": 0.22652920000000001
         },
         "95th_percentile": {
-            "etherscan": 0.65920135,
-            "moralis": 0.38074329999999995,
-            "infura": 0.49432955,
-            "ethereum_api": 0.69601485
+            "ethereum_api": 0.08826619999999999,
+            "etherscan": 0.5576254,
+            "infura": 0.5241781999999999,
+            "moralis": 0.22671205
         },
         "99th_percentile": {
-            "etherscan": 0.68556667,
-            "moralis": 0.40258306,
-            "infura": 0.49762751,
-            "ethereum_api": 0.69694617
+            "ethereum_api": 0.08834123999999999,
+            "etherscan": 0.55780988,
+            "infura": 0.52710764,
+            "moralis": 0.22676081
         }
     }
 }
