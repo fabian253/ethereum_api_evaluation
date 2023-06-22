@@ -1,6 +1,9 @@
+from connectors import sql_db_connector
+import connectors.connector_config as connector_config
 import evaluation.data_correctness as data_correctness
 import evaluation.heuristic as heuristic
 import evaluation.performance as performance
+import evaluation.research_question as research_question
 import json
 import logging
 
@@ -170,3 +173,78 @@ class EvaluationController():
                 request_performance_evaluation, file_path)
 
             logging.info("Performance Evaluation done (Timeframe)")
+
+    def evaluate_research_question_token_evolution(self, eval_token_evolution: bool, contract_address: str, token_id: int, file_path: str):
+        # token evolution
+        if eval_token_evolution:
+            logging.info(
+                "Research Question Evaluation started (Token Evolution)")
+
+            # get contract transactions
+            contract_transactions = sql_db_connector.query_contract_transaction_data(
+                connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+
+            research_question.create_token_transaction_graph(
+                contract_transactions, contract_address, token_id, file_path)
+
+            research_question.create_contract_transaction_frequency_chart(
+                contract_transactions, contract_address, file_path)
+
+            research_question.create_contract_transaction_history(
+                contract_transactions, contract_address, file_path)
+
+            logging.info(
+                "Research Question Evaluation done (Token Evolution)")
+
+    def evaluate_research_question_contract_evolution(self, eval_contract_evolution: bool, file_path: str):
+        # contract evolution
+        if eval_contract_evolution:
+            logging.info(
+                "Research Question Evaluation started (Contract Evolution)")
+
+            # get contract data
+            contract_data = sql_db_connector.query_contract_data(
+                connector_config.SQL_DATABASE_TABLE_CONTRACT,
+                with_block_deployed=True,
+                with_token_standards=True,
+                limit=10000000)
+
+            research_question.create_contract_deploy_history(
+                contract_data, file_path=file_path)
+
+            research_question.create_contract_deploy_history(
+                contract_data, from_block=10000000, file_path=file_path)
+
+            logging.info(
+                "Research Question Evaluation done (Contract Evolution)")
+
+    def evaluate_research_question_dao_contract_evolution(self, eval_dao_contract_evolution: bool, contract_address: str, file_path: str):
+        # dao contract evolution
+        if eval_dao_contract_evolution:
+            logging.info(
+                "Research Question Evaluation started (DAO Contract Evolution)")
+
+            # get dao contract transactions
+            dao_contract_transactions = sql_db_connector.query_contract_transaction_data(
+                connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address
+            )
+            #
+            holder_history_stats = research_question.create_holder_history_stats(
+                dao_contract_transactions)
+            holder_value_state = research_question.create_holder_value_state(
+                dao_contract_transactions)
+
+            research_question.create_holder_history_chart(
+                holder_history_stats, contract_address, file_path)
+
+            research_question.create_holder_change_history_chart(
+                holder_history_stats, contract_address, file_path)
+
+            research_question.create_holder_value_state_distribution_chart(
+                holder_value_state, contract_address, file_path)
+
+            research_question.create_transaction_history_chart(
+                dao_contract_transactions, contract_address, file_path)
+
+            logging.info(
+                "Research Question Evaluation done (DAO Contract Evolution)")
