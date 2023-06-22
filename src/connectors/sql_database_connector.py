@@ -241,6 +241,7 @@ class SqlDatabaseConnector:
                             with_symbol: bool = False,
                             with_block_deployed: bool = False,
                             with_total_supply: bool = False,
+                            with_token_standards: bool = False,
                             with_abi: bool = False,
                             limit: int = 1000) -> list:
         fields = ["contract_address"]
@@ -252,6 +253,10 @@ class SqlDatabaseConnector:
             fields.append("block_deployed")
         if with_total_supply:
             fields.append("total_supply")
+        if with_token_standards:
+            token_standard_fields = ["ERC20", "ERC20Metadata", "ERC165", "ERC721",
+                                     "ERC721Enumerable", "ERC721Metadata", "ERC777Token", "ERC1155", "ERC1155TokenReceiver"]
+            fields.extend(token_standard_fields)
         if with_abi:
             fields.append("abi")
 
