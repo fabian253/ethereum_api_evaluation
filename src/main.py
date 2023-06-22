@@ -20,7 +20,8 @@ evaluation_controller = EvaluationController(
     transaction_sample[:2],
     wallet_address_sample[:2],
     timeframe_block_sample,
-    timeframe_transaction_sample
+    timeframe_transaction_sample,
+    contract_address_sample
 )
 
 
@@ -46,6 +47,7 @@ if __name__ == "__main__":
     # evaluate research question token evolution
     evaluation_controller.evaluate_research_question_token_evolution(
         config.RESEARCH_QUESTION_TOKEN_EVOLUTION_DESCRIPTIVE,
+        config.RESEARCH_QUESTION_TOKEN_EVOLUTION_PATTERN,
         config.RESEARCH_QUESTION_TOKEN_EVOLUTION_CONTRACT_ADDRESS,
         config.RESEARCH_QUESTION_TOKEN_EVOLUTION_TOKEN_ID,
         config.RESEARCH_QUESTION_TOKEN_EVOLUTION_FILE_PATH)
