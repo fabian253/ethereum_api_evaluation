@@ -17,12 +17,14 @@ class EvaluationController():
                  transaction_sample,
                  wallet_address_sample,
                  timeframe_block_sample,
-                 timeframe_transaction_sample) -> None:
+                 timeframe_transaction_sample,
+                 contract_address_sample) -> None:
         self.block_sample = block_sample
         self.transaction_sample = transaction_sample
         self.wallet_address_sample = wallet_address_sample
         self.timeframe_block_sample = timeframe_block_sample
         self.timeframe_transaction_sample = timeframe_transaction_sample
+        self.contract_address_sample = contract_address_sample
 
     def evaluate_data_correctness(self, eval_block_correctness: bool, eval_transaction_correctness: bool, file_path: str):
         # evaluate block correctness
@@ -174,11 +176,11 @@ class EvaluationController():
 
             logging.info("Performance Evaluation done (Timeframe)")
 
-    def evaluate_research_question_token_evolution(self, eval_token_evolution: bool, contract_address: str, token_id: int, file_path: str):
-        # token evolution
-        if eval_token_evolution:
+    def evaluate_research_question_token_evolution(self, eval_token_evolution_descriptive: bool, eval_token_evolution_pattern: bool, contract_address: str, token_id: int, file_path: str):
+        # token evolution decriptive
+        if eval_token_evolution_descriptive:
             logging.info(
-                "Research Question Evaluation started (Token Evolution)")
+                "Research Question Evaluation started (Token Evolution Descriptive)")
 
             # get contract transactions
             contract_transactions = sql_db_connector.query_contract_transaction_data(
@@ -194,7 +196,29 @@ class EvaluationController():
                 contract_transactions, contract_address, file_path)
 
             logging.info(
-                "Research Question Evaluation done (Token Evolution)")
+                "Research Question Evaluation done (Token Evolution Descriptive)")
+
+        # token evolution pattern
+        if eval_token_evolution_pattern:
+            logging.info(
+                "Research Question Evaluation started (Token Evolution Pattern)")
+
+            # open transaction dataset
+            with open("src/dataset/transaction_dataset.json", "r") as f:
+                transaction_dataset = json.load(f)
+
+            # open contract dataset
+            with open("src/dataset/contract_dataset.json", "r") as f:
+                contract_dataset = json.load(f)
+
+            contract_list_fit = research_question.fit_contract_list_powerlaw(
+                transaction_dataset, contract_dataset, self.contract_address_sample)
+
+            with open(f"{file_path}/contract_list_fit.json", "w") as f:
+                json.dump(contract_list_fit, f, indent=4)
+
+            logging.info(
+                "Research Question Evaluation done (Token Evolution Pattern)")
 
     def evaluate_research_question_contract_evolution(self, eval_contract_evolution: bool, file_path: str):
         # contract evolution
