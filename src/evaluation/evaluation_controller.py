@@ -186,8 +186,8 @@ class EvaluationController():
             contract_transactions = sql_db_connector.query_contract_transaction_data(
                 connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
 
-            research_question.create_token_transaction_graph(
-                contract_transactions, contract_address, token_id, file_path)
+            #research_question.create_token_transaction_graph(
+            #    contract_transactions, contract_address, token_id, file_path)
 
             research_question.create_contract_transaction_frequency_chart(
                 contract_transactions, contract_address, file_path)
@@ -216,6 +216,12 @@ class EvaluationController():
 
             with open(f"{file_path}/contract_list_fit.json", "w") as f:
                 json.dump(contract_list_fit, f, indent=4)
+
+            contract_list_fit_evaluation = research_question.evaluate_contract_list_fit(
+                contract_list_fit)
+
+            research_question.create_contract_list_fit_chart(
+                contract_list_fit_evaluation, file_path)
 
             logging.info(
                 "Research Question Evaluation done (Token Evolution Pattern)")
