@@ -136,13 +136,13 @@ def evaluate_single_request_time_performance(request_time_performance: list, met
     average_request_time_dict = {key: (value/len(request_time_performance))
                                  for key, value in average_request_time_dict.items()}
 
-    percentile_80_dict = {key: np.percentile(value, 80)
+    percentile_25_dict = {key: np.percentile(value, 25)
+                          for key, value in request_time_dict.items()}
+
+    percentile_75_dict = {key: np.percentile(value, 75)
                           for key, value in request_time_dict.items()}
 
     percentile_95_dict = {key: np.percentile(value, 95)
-                          for key, value in request_time_dict.items()}
-
-    percentile_99_dict = {key: np.percentile(value, 99)
                           for key, value in request_time_dict.items()}
 
     return {
@@ -150,9 +150,9 @@ def evaluate_single_request_time_performance(request_time_performance: list, met
         "min_request_time": min_request_time_dict,
         "max_request_time": max_request_time_dict,
         "average_request_time": average_request_time_dict,
-        "80th_percentile": percentile_80_dict,
-        "95th_percentile": percentile_95_dict,
-        "99th_percentile": percentile_99_dict
+        "25th_percentile": percentile_25_dict,
+        "75th_percentile": percentile_75_dict,
+        "95th_percentile": percentile_95_dict
     }
 
 
