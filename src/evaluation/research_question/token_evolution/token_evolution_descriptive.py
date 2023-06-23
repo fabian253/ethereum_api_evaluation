@@ -56,7 +56,7 @@ def create_contract_transaction_frequency_chart(contract_transactions: list, con
         f"Research Question Token Evolution: Contract Transaction Frequency \nContract: {contract_address}", {"fontsize": 10})
     plt.tight_layout()
     plt.savefig(
-        f"{file_path}/contract_transaction_frequency.png", format="PNG")
+        f"{file_path}/contract_transaction_frequency_{contract_address}.png", format="PNG")
 
     logging.info("Contract Transaction Frequency Chart created")
 
@@ -92,6 +92,6 @@ def create_contract_transaction_history(contract_transactions: list, contract_ad
         f"Research Question Token Evolution: Contract Transaction History \nContract: {contract_address}", {"fontsize": 10})
     plt.tight_layout()
     plt.savefig(
-        f"{file_path}/contract_transaction_history.png", format="PNG")
+        f"{file_path}/contract_transaction_history_{contract_address}.png", format="PNG")
 
     logging.info("Contract Transaction History created")

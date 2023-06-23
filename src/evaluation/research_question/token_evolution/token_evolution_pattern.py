@@ -111,3 +111,59 @@ def fit_contract_list_powerlaw(transactions: list, contracts: list, contract_lis
                     f"Contract Powerlaw Fit error: {contract_address}")
 
     return contract_fit_list
+
+
+def evaluate_contract_list_fit(contract_list_fit: list) -> dict:
+    min_r_squared = 1
+    max_r_squared = 0
+    r_squared_list = []
+
+    for contract_fit in contract_list_fit:
+        if contract_fit["r_squared"] < min_r_squared:
+            min_r_squared = contract_fit["r_squared"]
+        if contract_fit["r_squared"] > max_r_squared:
+            max_r_squared = contract_fit["r_squared"]
+        r_squared_list.append(contract_fit["r_squared"])
+
+    average_r_squared = sum(r_squared_list) / len(r_squared_list)
+
+    percentile_25 = np.percentile(r_squared_list, 25)
+    percentile_75 = np.percentile(r_squared_list, 75)
+    percentile_95 = np.percentile(r_squared_list, 95)
+
+    return {
+        "contract_count": len(contract_list_fit),
+        "min_r_squared": min_r_squared,
+        "max_r_squared": max_r_squared,
+        "average_r_squared": average_r_squared,
+        "25th_percentile": percentile_25,
+        "75th_percentile": percentile_75,
+        "95th_percentile": percentile_95
+    }
+
+
+def create_contract_list_fit_chart(contract_list_fit_evaluation: dict, file_path: str):
+    x_labels = [k for k, v in contract_list_fit_evaluation.items() if k !=
+                "contract_count"]
+
+    data = [round(v, 4) for k, v in contract_list_fit_evaluation.items() if k !=
+            "contract_count"]
+
+    x = np.arange(6)
+    width = 0.3
+
+    plt.figure(figsize=(12, 6))
+    plt.bar(x, data, width)
+    plt.xticks(x, x_labels)
+
+    for i in range(len(x)):
+        plt.text(i, data[i]/2, data[i], ha="center")
+
+    plt.ylabel("r_squared")
+    plt.title(f"Research Question Token Evolution: Contract List Powerlaw Fit (contract_count: {contract_list_fit_evaluation['contract_count']})", {
+        "fontsize": 10})
+    plt.tight_layout()
+    plt.savefig(
+        f"{file_path}/contract_list_power_law_fit.png", format="PNG")
+    
+    logging.info("Contract List Powerlaw Fit Chart created")
