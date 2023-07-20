@@ -1,12 +1,12 @@
 {
-    "transaction_sample_size": 2,
+    "transaction_sample_size": 1000,
     "transaction_sample_evaluation": {
-        "ethereum_api - etherscan": 2,
-        "ethereum_api - infura": 2,
-        "ethereum_api - moralis": 2,
-        "etherscan - infura": 2,
-        "etherscan - moralis": 2,
-        "infura - moralis": 2
+        "ethereum_api - etherscan": 1000,
+        "ethereum_api - infura": 1000,
+        "ethereum_api - moralis": 1000,
+        "etherscan - infura": 1000,
+        "etherscan - moralis": 1000,
+        "infura - moralis": 1000
     },
     "evaluation_ratio": {
         "ethereum_api - etherscan": 1.0,
