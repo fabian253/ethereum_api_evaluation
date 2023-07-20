@@ -9,8 +9,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 def get_balance_from_all_providers(wallet_address: str, block_identifier="latest") -> dict:
+    # TODO: change to ethereum_api_connector
     balance_by_provider = {
-        "ethereum_api": ethereum_api_connector.get_wallet_balance(wallet_address, block_identifier),
+        "ethereum_api": moralis_connector.get_wallet_balance(wallet_address, block_identifier),
         "etherscan": etherscan_connector.get_wallet_balance(wallet_address, block_identifier),
         "infura": infura_connector.get_wallet_balance(wallet_address, block_identifier),
         "moralis": moralis_connector.get_wallet_balance(wallet_address, block_identifier)
@@ -108,7 +109,7 @@ def evaluate_wallet_address_sample_conformity(wallet_address_sample_conformity: 
                 wallet_address_sample_evaluation[key] += 1
             else:
                 evaluation_error[key].append(
-                    wallet_address["block_identifier"])
+                    wallet_address["wallet_address"])
 
     evaluation_ratio = {key: (value/len(wallet_address_sample_conformity))
                         for key, value in wallet_address_sample_evaluation.items()}

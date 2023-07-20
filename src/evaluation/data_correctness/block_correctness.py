@@ -47,6 +47,8 @@ def preprocess_block_for_all_providers(block_by_provider: dict) -> dict:
     # remove single keys
     if "totalDifficulty" in matching_keys:
         matching_keys.remove("totalDifficulty")
+    if "difficulty" in matching_keys:
+        matching_keys.remove("difficulty")
 
     for block in [ethereum_api_block, etherscan_block, infura_block, moralis_block]:
         for key in list(block.keys()):

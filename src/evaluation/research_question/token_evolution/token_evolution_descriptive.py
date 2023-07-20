@@ -31,7 +31,7 @@ def create_token_transaction_graph(contract_transactions: list, contract_address
 
     plt.tight_layout()
     plt.savefig(
-        f"{file_path}/token_transaction_graph.png", format="PNG")
+        f"{file_path}/token_transaction_graph_{contract_address}_{token_id}.png", format="PNG")
 
     logging.info("Token Transaction Graph created")
 

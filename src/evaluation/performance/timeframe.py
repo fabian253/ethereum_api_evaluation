@@ -189,6 +189,7 @@ def evaluate_timeframe_request_time_performance(request_time_performance):
             tmp_performance_comparison = {}
             tmp_performance_comparison_percentage = {}
             for api_provider in overall_new_performance[key].keys():
+                # postive -> new is slower, negativ -> new is faster
                 tmp_performance_comparison[api_provider] = overall_new_performance[key][api_provider] - \
                     overall_old_performance[key][api_provider]
 

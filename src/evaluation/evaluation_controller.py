@@ -6,6 +6,7 @@ import evaluation.performance as performance
 import evaluation.research_question as research_question
 import json
 import logging
+from typing import Union
 
 logging.basicConfig(level=logging.INFO)
 
@@ -176,18 +177,25 @@ class EvaluationController():
 
             logging.info("Performance Evaluation done (Timeframe)")
 
-    def evaluate_research_question_token_evolution(self, eval_token_evolution_descriptive: bool, eval_token_evolution_pattern: bool, contract_address: str, token_id: int, file_path: str):
+    def evaluate_research_question_token_evolution(self, eval_token_evolution_descriptive: bool, eval_token_evolution_pattern: bool, contract_address: str, token_id: int, file_path: str, use_db: bool = True):
         # token evolution decriptive
         if eval_token_evolution_descriptive:
             logging.info(
                 "Research Question Evaluation started (Token Evolution Descriptive)")
 
             # get contract transactions
-            contract_transactions = sql_db_connector.query_contract_transaction_data(
-                connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+            if use_db:
+                contract_transactions = sql_db_connector.query_contract_transaction_data(
+                    connector_config.SQL_DATABASE_TABLE_TRANSACTION, contract_address)
+            else:
+                with open("src/dataset/transaction_dataset.json", "r") as f:
+                    transaction_dataset = json.load(f)
 
-            #research_question.create_token_transaction_graph(
-            #    contract_transactions, contract_address, token_id, file_path)
+                contract_transactions = [
+                    t for t in transaction_dataset if t["contract_address"] == contract_address]
+
+            research_question.create_token_transaction_graph(
+                contract_transactions, contract_address, token_id, file_path)
 
             research_question.create_contract_transaction_frequency_chart(
                 contract_transactions, contract_address, file_path)
@@ -226,7 +234,7 @@ class EvaluationController():
             logging.info(
                 "Research Question Evaluation done (Token Evolution Pattern)")
 
-    def evaluate_research_question_contract_evolution(self, eval_contract_evolution: bool, file_path: str):
+    def evaluate_research_question_contract_evolution(self, eval_contract_evolution: bool, file_path: str, from_block: Union[int, None] = None, to_block: Union[int, None] = None):
         # contract evolution
         if eval_contract_evolution:
             logging.info(
@@ -242,17 +250,24 @@ class EvaluationController():
             research_question.create_contract_deploy_history(
                 contract_data, file_path=file_path)
 
-            research_question.create_contract_deploy_history(
-                contract_data, from_block=10000000, file_path=file_path)
+            if from_block is not None and to_block is None:
+                research_question.create_contract_deploy_history(
+                    contract_data, from_block=from_block, file_path=file_path)
+            if from_block is None and to_block is not None:
+                research_question.create_contract_deploy_history(
+                    contract_data, to_block=to_block, file_path=file_path)
+            if from_block is not None and to_block is not None:
+                research_question.create_contract_deploy_history(
+                    contract_data, from_block=from_block, to_block=to_block, file_path=file_path)
 
             logging.info(
                 "Research Question Evaluation done (Contract Evolution)")
 
-    def evaluate_research_question_dao_contract_evolution(self, eval_dao_contract_evolution: bool, contract_address: str, file_path: str):
-        # dao contract evolution
-        if eval_dao_contract_evolution:
+    def evaluate_research_question_dao_contract_evolution(self, eval_dao_contract_evolution_descriptive: bool, eval_dao_contract_evolution_analysis: bool, contract_address: str, file_path: str):
+        # dao contract evolution descriptive
+        if eval_dao_contract_evolution_descriptive:
             logging.info(
-                "Research Question Evaluation started (DAO Contract Evolution)")
+                "Research Question Evaluation started (DAO Contract Evolution Descriptive)")
 
             # get dao contract transactions
             dao_contract_transactions = sql_db_connector.query_contract_transaction_data(
@@ -277,4 +292,50 @@ class EvaluationController():
                 dao_contract_transactions, contract_address, file_path)
 
             logging.info(
-                "Research Question Evaluation done (DAO Contract Evolution)")
+                "Research Question Evaluation done (DAO Contract Evolution Descriptive)")
+
+        # dao contract evolution analysis
+        if eval_dao_contract_evolution_analysis:
+            logging.info(
+                "Research Question Evaluation started (DAO Contract Evolution Analysis)")
+
+            # open dao contract list
+            with open("src/dataset/dao_contract_list.json", "r") as f:
+                dao_contract_list = json.load(f)
+
+            # open dao transaction dataset
+            with open("src/dataset/dao_transaction_dataset.json", "r") as f:
+                dao_transaction_dataset = json.load(f)
+
+            contract_gini_intervall, contract_gini_evaluation = research_question.evaluate_contract_measure_evolution(
+                dao_transaction_dataset, dao_contract_list, research_question.gini_coefficient, 100)
+
+            research_question.create_measure_evolution_chart(
+                contract_gini_evaluation, file_path, "Gini")
+
+            research_question.create_contract_measure_chart(
+                contract_gini_intervall, 0, file_path, "Gini")
+
+            research_question.create_contract_measure_chart(
+                contract_gini_intervall, 49, file_path, "Gini")
+
+            research_question.create_contract_measure_chart(
+                contract_gini_intervall, 99, file_path, "Gini")
+
+            contract_herfindahl_intervall, contract_herfindahl_evaluation = research_question.evaluate_contract_measure_evolution(
+                dao_transaction_dataset, dao_contract_list, research_question.herfindahl_index, 100)
+
+            research_question.create_measure_evolution_chart(
+                contract_herfindahl_evaluation, file_path, "Herfindahl")
+
+            research_question.create_contract_measure_chart(
+                contract_herfindahl_intervall, 0, file_path, "Herfindahl")
+
+            research_question.create_contract_measure_chart(
+                contract_herfindahl_intervall, 49, file_path, "Herfindahl")
+
+            research_question.create_contract_measure_chart(
+                contract_herfindahl_intervall, 99, file_path, "Herfindahl")
+
+            logging.info(
+                "Research Question Evaluation done (DAO Contract Evolution Analysis)")
