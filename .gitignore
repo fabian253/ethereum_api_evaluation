@@ -129,6 +129,4 @@ dmypy.json
 .pyre/
 
 # Custom
-src/connectors/connector_config.py
 src/dataset
-src/testing.py
