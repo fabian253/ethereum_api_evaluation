@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from typing import Union
 import logging
-import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -102,9 +101,9 @@ def calc_interval_fast(transactions: list, contract_address: str, block_interval
 def calc_contract_measure(contracts: list, transactions: list, func, interval_count: int = 10):
     contract_interval = []
 
-    for contract_address in contracts:
+    for contract in contracts:
         contract_transactions = [
-            t for t in transactions if t["contract_address"] == contract_address]
+            t for t in transactions if t["contract_address"] == contract["address"]]
 
         if len(contract_transactions) > 0:
             contract_block_numbers = [t["block_number"]
@@ -115,11 +114,12 @@ def calc_contract_measure(contracts: list, transactions: list, func, interval_co
             del contract_block_intervals[0]
 
             measure_interval = calc_interval_fast(contract_transactions,
-                                                  contract_address, contract_block_intervals, func)
+                                                  contract["address"], contract_block_intervals, func)
 
             contract_interval.append(
                 {
-                    "contract_address": contract_address,
+                    "contract_address": contract["address"],
+                    "contract_symbol": contract["symbol"],
                     "transaction_count": len(contract_transactions),
                     "measure_interval": measure_interval
                 }
@@ -200,27 +200,28 @@ def create_measure_evolution_chart(contract_evaluation: dict, file_path: str, fu
 
 
 def create_contract_measure_chart(contract_measure_intervall: dict, interval: int, file_path: str, func_name: str):
-    contracts = {c["contract_address"]: list(c["measure_interval"].values())[interval]
+    contracts = {(c["contract_address"], c["contract_symbol"]): list(c["measure_interval"].values())[interval]
                  for c in contract_measure_intervall}
 
     sorted_contracts = dict(
         sorted(contracts.items(), key=lambda x: x[1], reverse=True))
+
+    sorted_contract_symbols = [c[1] for c in sorted_contracts.keys()]
 
     contract_measure_values = list(sorted_contracts.values())
 
     avg_measure_values = sum(contract_measure_values) / \
         len(contract_measure_values)
 
-    with open(f"{file_path}/contract_{func_name}_interval_{interval}.json", "w") as f:
-        json.dump(sorted_contracts, f, indent=4)
-
     x = np.arange(len(contract_measure_values))
-    plt.figure(figsize=(12, 6))
+    fig = plt.figure(figsize=(12, 6))
+    ax = fig.gca()
     plt.bar(x, contract_measure_values)
     plt.axhline(avg_measure_values, color="red", linestyle="--")
     plt.xlabel("Contract")
     plt.ylabel(f"{func_name} Coefficient")
     plt.xticks(x)
+    ax.set_xticklabels(sorted_contract_symbols, rotation=90)
 
     plt.title(
         f"Research Question DAO Contract Evolution: Contract {func_name} Coefficient Interval\n(contract_count: {len(contract_measure_values)}, interval: {interval})", {"fontsize": 10})
