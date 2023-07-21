@@ -37,32 +37,9 @@ def get_block(url: str, request_header: dict,  block_identifier: Union[int, str]
     return response.json()
 
 
-def get_contract_metadata(url: str, request_header: dict, contract_address: str):
-    params = {
-        "contract_address": contract_address
-    }
-
-    response = requests.get(
-        f"{url}/mainnet/contract/metadata", params=params, headers=request_header)
-
-    return response.json()
-
-
 if __name__ == "__main__":
     access_token, request_header = authenticate(url, user, password)
 
-    # block = get_block(url, request_header, "latest", False)
+    block = get_block(url, request_header, "latest", False)
 
-    with open("src/dataset/dao_contract_list.json", "r") as f:
-        contracts = json.load(f)
-
-    metadata = []
-
-    for contract in contracts:
-        contract_metadata = get_contract_metadata(
-            url, request_header, contract)
-
-        metadata.append(contract_metadata)
-
-    with open("src/dataset/dao_contract_list.json", "w") as f:
-        json.dump(metadata, f, indent=4)
+    print(block)
