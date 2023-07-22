@@ -1,6 +1,5 @@
 import requests
 from typing import Union
-import json
 
 url = "http://134.155.111.231:8000"
 user = "admin"
