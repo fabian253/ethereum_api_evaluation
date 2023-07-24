@@ -2,6 +2,8 @@
 
 The project aims to evaluate the functionality of the associated [Ethereum API](https://github.com/fabian253/ethereum_api). Here, different areas are tested, which show the functionality as well as the possibilities and use cases of the API.
 
+> **_NOTE:_** An additional folder named *dataset* must be created for the evaluation. This folder must be inserted directly into the *src* folder. Several datasets must be saved in this folder, which can be found on [Kaggle](https://www.kaggle.com/datasets/fabiangalm/ethereum-blockchain).
+
 This evaluation is split into the following parts:
 
 - Data Correctness
